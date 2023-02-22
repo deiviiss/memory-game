@@ -9,11 +9,10 @@ export default function GamePage () {
   return (
     <>
       <h1>Game Page</h1>
-      <button>Level</button>
-      <button>Timer</button>
+      <button>CardLink Level</button>
+      <button>CardLink Timer</button>
       <BoardGame/>
-      <button>Level</button>
-      <button>Timer</button>
+      <button>CardLink Score</button><button>CardLink Attempts</button>
 </>
 
   )
