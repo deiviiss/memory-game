@@ -3,7 +3,7 @@ import '../styles/Navbar.css'
 
 export default function Navbar () {
   return (
-    <div className='flex'>
+    <div className='background'>
 <h1 >Memorama Time</h1>
       <ul className='bg-red-200'>
         <li>

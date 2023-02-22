@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './index.css'
+
 import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import GamesPage from './pages/GamesPage'
@@ -12,8 +12,8 @@ export default function App () {
       <>
       <ProviderGame>
           <BrowserRouter>
-   <h1 className="text-3xl font-bold underline">
-      Hello world!
+   <h1 className="text-3xl font-bold underline bg-red-200">
+      Hello!
     </h1>
           <Navbar/>
 
