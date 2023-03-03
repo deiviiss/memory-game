@@ -6,12 +6,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundColor: ({
+      backgroundColor: {
         primary: '#1d9fea',
         secondary: '#203a85',
         tertiary: '#ffb885',
         quaternary: '#ff7e38'
-      }),
+      },
+      fontFamily: {
+        Amatic: ['Amatic SC', 'cursive']
+      },
       textColor: {
         primary: '#1d9fea',
         secondary: '#203a85',
