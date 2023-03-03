@@ -1,18 +1,28 @@
 // import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import BoardGame from '../components/BoardGame'
-// import { GameContext } from '../context/GameContext'
+import CardBoard from '../components/CardBoard'
 
 export default function GamePage () {
   const params = useParams()
-  console.log(params)
+
   return (
     <>
-      <h1>Game Page</h1>
-      <button>CardLink Level</button>
-      <button>CardLink Timer</button>
+      <div className="flex">
+        {/* level */}
+        <CardBoard data={2} />
+        {/* timer */}
+        <CardBoard data={'00:00 seconds'}/>
+      </div>
+
       <BoardGame/>
-      <button>CardLink Score</button><button>CardLink Attempts</button>
+
+      <div className="flex">
+        {/* score */}
+        <CardBoard data={2}/>
+        {/* attempts */}
+        <CardBoard data={4}/>
+      </div>
 </>
 
   )
