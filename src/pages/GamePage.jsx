@@ -8,22 +8,20 @@ export default function GamePage () {
 
   return (
     <>
-      <div className="flex w-full flex-row justify-around items-center pt-6">
+      <BoardGame/>
+      
+      <div className="flex w-full flex-row justify-around items-center mb-3 fixed bottom-0 left-0 bg-secondary-gradient bg-no-repeat">
         {/* level */}
         <CardBoard data={2} />
         {/* timer */}
-        <CardBoard data={'00:00 seconds'}/>
-      </div>
-
-      <BoardGame/>
-
-      <div className="flex w-full flex-row justify-around items-center pt-6">
+        <CardBoard data={'00:00'}/>
         {/* score */}
         <CardBoard data={2}/>
         {/* attempts */}
         <CardBoard data={4}/>
       </div>
-</>
+
+    </>
 
   )
 }
