@@ -1,14 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --bg-primary: linear-gradient(to top, #4481eb 0%, #04befe 100%) fixed no-repeat;
-  /*Degradado 106 Party Bliss*/
-  --bg-secundary: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%) fixed no-repeat;
-  /*Degradado 123 Night Sky*/
-  --bg-modal: linear-gradient(to top, #ffa366 0%, #f4cda5 100%) fixed no-repeat;
-  /*Degradado personalizado*/
-  --bg-card: linear-gradient(-60deg, #ff5858 0%, #f09819 100%) fixed no-repeat;
-  /*Degradado 102 Happy Memories*/
-}

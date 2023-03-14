@@ -8,7 +8,7 @@ export default function GamePage () {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex w-full flex-row justify-around items-center pt-6">
         {/* level */}
         <CardBoard data={2} />
         {/* timer */}
@@ -17,7 +17,7 @@ export default function GamePage () {
 
       <BoardGame/>
 
-      <div className="flex">
+      <div className="flex w-full flex-row justify-around items-center pt-6">
         {/* score */}
         <CardBoard data={2}/>
         {/* attempts */}
