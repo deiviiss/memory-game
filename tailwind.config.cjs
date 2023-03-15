@@ -26,7 +26,13 @@ module.exports = {
         secondary: '#203a85',
         tertiary: '#ffb885',
         quaternary: '#ff7e38'
-      }
+      },
+      backgroundImage: {
+        'primary-gradient': 'linear-gradient(to top, #4481eb 0%, #04befe 100%)',
+        'secondary-gradient': 'linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%)',
+        'modal-gradient': 'linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%)',
+        'card-gradient': 'linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%)',
+      },
     }
   },
   plugins: []
