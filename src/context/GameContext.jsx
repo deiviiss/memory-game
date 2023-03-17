@@ -1,22 +1,29 @@
 import PropTypes from 'prop-types'
-import { useState, createContext } from 'react'
+import { useState, createContext, useContext } from 'react'
 
 import { getGameRequest } from '../services/api/gameRequests'
 
-export const GameContext = createContext()
+const GameContext = createContext()
+
+export const useCards = () => {
+  const context = useContext(GameContext)
+
+  return context
+}
 
 export const ProviderGame = ({ children }) => {
   const [cardsGame, setCardsGame] = useState()
 
   const getCardsGame = async (gameId) => {
     const rta = await getGameRequest(gameId)
-
-    return rta
+    setCardsGame(rta)
   }
 
   return (
     <GameContext.Provider value={{
-      getCardsGame
+      getCardsGame,
+      cardsGame,
+      setCardsGame
     }}>
       {children}
     </GameContext.Provider>

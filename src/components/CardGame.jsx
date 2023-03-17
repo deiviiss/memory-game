@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 
-export default function CardGame ({ link }) {
+export default function CardGame () {
   return (
-    <div >
-      <Link to={`/games/${link.gameId}`} >{link.nameGame}</Link>
+    <div className='w-4 h4' >
+      <h1>Card</h1>
+
     </div>
   )
 }
 
-CardGame.propTypes = {
-  link: PropTypes.object.isRequired
-}
+// CardGame.propTypes = {
+//   link: PropTypes.object.isRequired
+// }
