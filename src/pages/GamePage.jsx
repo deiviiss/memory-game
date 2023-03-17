@@ -4,11 +4,15 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BoardGame from '../components/BoardGame'
 import CardBoard from '../components/CardBoard'
+<<<<<<< HEAD
 import { useCards } from '../context/GameContext'
+=======
+>>>>>>> cc00a1939a8ccd1638a9647500f86b66c9175033
 
 export default function GamePage () {
   const params = useParams()
 
+<<<<<<< HEAD
   // const [canPlay, setCanPlay] = useState(false)
   // const [card1, setCard1] = useState(null)
   // const [card2, setCard2] = useState(null)
@@ -280,12 +284,28 @@ export default function GamePage () {
       {renderCards(cardsLevel)}
     </div>
       <div className="flex">
+=======
+  return (
+    <>
+      <BoardGame/>
+      
+      <div className="flex w-full flex-row justify-around items-center mb-3 fixed bottom-0 left-0 bg-secondary-gradient bg-no-repeat">
+        {/* level */}
+        <CardBoard data={2} />
+        {/* timer */}
+        <CardBoard data={'00:00'}/>
+>>>>>>> cc00a1939a8ccd1638a9647500f86b66c9175033
         {/* score */}
         <CardBoard data={2}/>
         {/* attempts */}
         <CardBoard data={4}/>
       </div>
+<<<<<<< HEAD
 </>
+=======
+
+    </>
+>>>>>>> cc00a1939a8ccd1638a9647500f86b66c9175033
 
   )
 }
