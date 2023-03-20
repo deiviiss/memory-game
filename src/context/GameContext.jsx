@@ -13,6 +13,9 @@ export const useCards = () => {
 
 export const ProviderGame = ({ children }) => {
   const [cardsGame, setCardsGame] = useState()
+  const [currentLevel, setCurrentLevel] = useState(2)
+  const [usedCards, setUsedCards] = useState([])
+  const [avoidCards, setAvoidCards] = useState([0, 1])
 
   const getCardsGame = async (gameId) => {
     const rta = await getGameRequest(gameId)
@@ -23,7 +26,13 @@ export const ProviderGame = ({ children }) => {
     <GameContext.Provider value={{
       getCardsGame,
       cardsGame,
-      setCardsGame
+      setCardsGame,
+      currentLevel,
+      setCurrentLevel,
+      usedCards,
+      setUsedCards,
+      avoidCards,
+      setAvoidCards
     }}>
       {children}
     </GameContext.Provider>
