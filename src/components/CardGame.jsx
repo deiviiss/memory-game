@@ -48,7 +48,7 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
   }, [found])
 
   return (
-    <li onClick={() => handleClick(card)} className="pb-8" >
+    <li onClick={() => handleClick(card)} className="pb-8 cursor-pointer" >
 
       {/* content */}
       <div className={`content ${clicked ? '' : 'hidden'} py-5 `}>

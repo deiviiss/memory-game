@@ -13,7 +13,7 @@ module.exports = {
         quaternary: '#ff7e38'
       },
       fontFamily: {
-        Amatic: ['Amatic SC', 'cursive']
+        Edu: ['Edu NSW ACT Foundation', 'cursive']
       },
       textColor: {
         primary: '#1d9fea',
