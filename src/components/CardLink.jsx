@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export default function CardLink ({ link }) {
   return (
 
-    <div className=' flex flex-col justify-around items-center text-center my-4 px-2 bg-secondary-gradient bg-no-repeat rounded-md w-full h-20 text-white hover:border-2 hover:border-white'>
+    <div className=' flex flex-col justify-around items-center text-center my-4 px-2 bg-secondary-gradient bg-no-repeat rounded-md w-full h-20 text-secondary hover:border-2 hover:border-secondary'>
       <div className='flex flex-row justify-between w-full pt-3'>
         <Link to={`/games/${link.gameId}`}>{link.nameGame} </Link>
         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-dots-vertical cursor-pointer" width={24} height={24} viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
