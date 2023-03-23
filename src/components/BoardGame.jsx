@@ -9,22 +9,19 @@ export default function BoardGame ({ gameId }) {
   const [maxPairNumber, setMaxPairNumber] = useState('')
   const [cardsLevel, setCardsLevel] = useState([])
 
-  // cards select
-  const [selected, setSelected] = useState([])
-  const [clicked, setClicked] = useState(false)
+  const [selected, setSelected] = useState([]) // cards select
+  const [clickedStart, setClickedStart] = useState(false)
+  const [cardsOver, setCardsOver] = useState(false)
 
   useEffect(() => {
     getCardsGame(gameId)
   }, [])
 
-  const isCardAllow = (card, arr) => {
-    return arr.includes(card)
-  }
-
   const selectRandomCards = (cards, numCards) => {
     let randomCards = cards.sort(() => 0.5 - Math.random()).slice(0, numCards)
+
     // Check cards on usedCards or avoidCards
-    while (randomCards.some(card => isCardAllow(card, usedCards) || isCardAllow(card, avoidCards))) {
+    while (usedCards.some(usedCard => randomCards.find(randomCard => randomCard.id === usedCard.id)) || avoidCards.some(avoidCard => randomCards.find(randomCard => randomCard.id === avoidCard.id))) {
       randomCards = cards.sort(() => 0.5 - Math.random()).slice(0, numCards)
     }
 
@@ -47,22 +44,24 @@ export default function BoardGame ({ gameId }) {
   }
 
   const handleClick = () => {
-    if (cardsGame === undefined) {
-      console.log('There are not cardsGame yet')
-      //! handle exception
+    setClickedStart(true)
+
+    if (cardsGame.length < currentLevel) {
+      console.log('cards is over')
+      console.log('¿What happend now?')
+      setCardsOver(false)
     } else {
-      setClicked(true)
       setCardsForLevel(cardsGame)
     }
   }
 
   return (
     <div className='flex justify-center align-items: center'>
-    <button className={clicked ? 'hidden' : ''} onClick={handleClick}>Start</button>
-    <ul className="w-full h-full grid items-center justify-items-center grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4">
+    <button className={clickedStart || cardsGame === undefined ? 'hidden' : ''} onClick={handleClick}>Start</button>
+    <ul className={`w-full h-full grid items-center justify-items-center grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 ${cardsOver ? 'hidden' : ''}`}>
       {
         cardsLevel?.map((card, index) => (
-        <CardGame card={card} key={index} setSelected={setSelected} selected={selected} maxPairNumber={maxPairNumber} setClicked={setClicked} clicked={clicked}/>
+        <CardGame card={card} key={index} setSelected={setSelected} selected={selected} maxPairNumber={maxPairNumber} setClicked={setClickedStart} clicked={clickedStart}/>
         ))
       }
     </ul>

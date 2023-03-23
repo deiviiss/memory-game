@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useCards } from '../context/GameContext'
 
 export default function CardGame ({ card, setSelected, selected, maxPairNumber, setClicked, clicked }) {
-  const { setCurrentLevel, usedCards, setUsedCards, currentLevel } = useCards()
+  const { setCurrentLevel, usedCards, setUsedCards, currentLevel, setCardsGame, cardsGame } = useCards()
 
   // cards found
   const [found, setFound] = useState([])
@@ -39,11 +39,16 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
       const newUsedCards = found.concat(usedCards)
       setUsedCards(newUsedCards)
 
-      setCurrentLevel(currentLevel + 1)
-      console.log('level complete')
+      // delete usedCards from cardsGame
+      const result = cardsGame.filter(card => !newUsedCards.some(newUsedCard => newUsedCard.id === card.id))
+
+      setCardsGame(result)
 
       setTimeout(() => setClicked(false), 2000)
       setTimeout(() => clearArrays(), 1000)
+
+      setCurrentLevel(currentLevel + 1)
+      console.log('level complete')
     }
   }, [found])
 
