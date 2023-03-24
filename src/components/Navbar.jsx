@@ -1,5 +1,3 @@
-import { NavLink } from 'react-router-dom'
-import '../styles/Navbar.css'
 import DropDown from './DropDown'
 
 export default function Navbar () {

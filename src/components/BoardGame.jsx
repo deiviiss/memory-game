@@ -56,7 +56,7 @@ export default function BoardGame ({ gameId }) {
   }
 
   return (
-    <div className='flex justify-center align-items: center'>
+    <div className='flex justify-center align-items: center z-40'>
     <button className={clickedStart || cardsGame === undefined ? 'hidden' : ''} onClick={handleClick}>Start</button>
     <ul className={`w-full h-full grid items-center justify-items-center grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 ${cardsOver ? 'hidden' : ''}`}>
       {
