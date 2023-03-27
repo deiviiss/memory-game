@@ -1,32 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* temporaly class, delete when config tailwind complete */
-
-.front,
-.back {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  display: grid;
-  place-content: center;
-  backface-visibility: hidden;
-  transition: .4s;
-}
-
-.front {
-  transform: perspective(200px) rotateY(0deg);
-}
-
-.back {
-  transform: perspective(200px) rotateY(180deg);
-}
-
-.flip-front {
-  transform: perspective(200px) rotateY(180deg);
-}
-
-.flip-back {
-  transform: perspective(200px) rotateY(0deg);
-}
