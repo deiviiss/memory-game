@@ -3,19 +3,6 @@
 @tailwind utilities;
 
 /* temporaly class, delete when config tailwind complete */
-ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  list-style: none;
-  gap: 20px;
-}
-
-li .content {
-  position: relative;
-  width: 105px;
-  height: 105px;
-}
 
 .front,
 .back {

@@ -56,9 +56,9 @@ export default function BoardGame ({ gameId }) {
   }
 
   return (
-    <div className='flex justify-center align-items: center z-40'>
+    <div className='flex justify-center items-center z-40'>
     <button className={clickedStart || cardsGame === undefined ? 'hidden' : ''} onClick={handleClick}>Start</button>
-    <ul className={`w-full h-full grid items-center justify-items-center grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 ${cardsOver ? 'hidden' : ''}`}>
+    <ul className={`w-full px-4 grid items-center place-content-around grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 ${cardsOver ? 'hidden' : ''}`}>
       {
         cardsLevel?.map((card, index) => (
         <CardGame card={card} key={index} setSelected={setSelected} selected={selected} maxPairNumber={maxPairNumber} setClicked={setClickedStart} clicked={clickedStart}/>

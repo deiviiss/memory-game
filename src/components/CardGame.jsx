@@ -53,10 +53,9 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
   }, [found])
 
   return (
-    <li onClick={() => handleClick(card)} className="pb-8 cursor-pointer" >
+    <li onClick={() => handleClick(card)} className="cursor-pointer flex items-center justify-center py-4" >
 
-      {/* content */}
-      <div className={`content ${clicked ? '' : 'hidden'} py-5 `}>
+      <div className={`w-24 h-24 relative ${clicked ? '' : 'hidden'} py-5 `}>
 
         <div className={`front ${include ? 'flip-front' : ''}`}>
             <img className="w-24 h-32 object-cover rounded-md" src='https://img.freepik.com/vector-gratis/signo-interrogacion-moderno-pagina-ayuda-soporte_1017-27395.jpg?w=740&t=st=1679235518~exp=1679236118~hmac=181ac93b5af8c17e7535d53c0dc7c716a87484f8bae2d5d20f085427c48085e0' alt={card.name} />
