@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useCards } from '../context/GameContext'
 
 export default function CardGame ({ card, setSelected, selected, maxPairNumber, setClicked, clicked }) {
-  const { setCurrentLevel, usedCards, setUsedCards, currentLevel } = useCards()
+  const { setCurrentLevel, usedCards, setUsedCards, currentLevel, setCardsGame, cardsGame } = useCards()
 
   // cards found
   const [found, setFound] = useState([])
@@ -39,26 +39,30 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
       const newUsedCards = found.concat(usedCards)
       setUsedCards(newUsedCards)
 
-      setCurrentLevel(currentLevel + 1)
-      console.log('level complete')
+      // delete usedCards from cardsGame
+      const result = cardsGame.filter(card => !newUsedCards.some(newUsedCard => newUsedCard.id === card.id))
+
+      setCardsGame(result)
 
       setTimeout(() => setClicked(false), 2000)
       setTimeout(() => clearArrays(), 1000)
+
+      setCurrentLevel(currentLevel + 1)
+      console.log('level complete')
     }
   }, [found])
 
   return (
-    <li onClick={() => handleClick(card)} className="pb-8 cursor-pointer" >
+    <li onClick={() => handleClick(card)} className="flex items-center justify-center py-4" >
 
-      {/* content */}
-      <div className={`content ${clicked ? '' : 'hidden'} py-5 `}>
+      <div className={`w-24 h-32 bg-transparent cursor-pointer preserve-3d perspective relative ${clicked ? '' : 'hidden'} `}>
 
-        <div className={`front ${include ? 'flip-front' : ''}`}>
-            <img className="w-24 h-32 object-cover rounded-md" src='https://img.freepik.com/vector-gratis/signo-interrogacion-moderno-pagina-ayuda-soporte_1017-27395.jpg?w=740&t=st=1679235518~exp=1679236118~hmac=181ac93b5af8c17e7535d53c0dc7c716a87484f8bae2d5d20f085427c48085e0' alt={card.name} />
+        <div className={`absolute h-32 w-24 backface-hidden duration-500 ${include ? 'rotate-y-180' : ''}`}>
+            <img className="w-full h-full object-cover rounded-md" src='https://img.freepik.com/vector-gratis/signo-interrogacion-moderno-pagina-ayuda-soporte_1017-27395.jpg?w=740&t=st=1679235518~exp=1679236118~hmac=181ac93b5af8c17e7535d53c0dc7c716a87484f8bae2d5d20f085427c48085e0' alt={card.name} />
         </div>
 
-        <div className={`back ${include ? 'flip-back' : ''}`}>
-          <img className="w-24 h-32 object-cover rounded-md" src={card.image} alt={card.name} />
+        <div className={`absolute h-32 w-24 backface-hidden overflow-hidden duration-500  ${include ? '' : 'rotate-y-180'}`}>
+          <img className="w-full h-full object-cover rounded-md" src={card.image} alt={card.name} />
         </div>
 
       </div>

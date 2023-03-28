@@ -1,4 +1,24 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require("tailwindcss/plugin");
+
+const CardAnimation = plugin(function ({ addUtilities }) {
+  addUtilities({
+    ".rotate-y-180": {
+      transform: "rotateY(180deg)",
+    },
+    ".preserve-3d": {
+      transformStyle: "preserve-3d",
+    },
+    ".perspective": {
+      perspective: "1000px",
+    },
+    ".backface-hidden": {
+      backfaceVisibility: "hidden",
+    },
+  });
+});
+
 module.exports = {
   content: [
     './index.html',
@@ -6,26 +26,16 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundColor: {
-        primary: '#1d9fea',
-        secondary: '#203a85',
-        tertiary: '#ffb885',
-        quaternary: '#ff7e38'
-      },
       fontFamily: {
         Edu: ['Edu NSW ACT Foundation', 'cursive']
       },
-      textColor: {
-        primary: '#1d9fea',
-        secondary: '#203a85',
-        tertiary: '#ffb885',
-        quaternary: '#ff7e38'
+      colors: {
+        primary: '#090030',
+        secondary: '#ffff', 
       },
-      ringColor: {
-        primary: '#1d9fea',
-        secondary: '#203a85',
-        tertiary: '#ffb885',
-        quaternary: '#ff7e38'
+      textColor: {
+        primary: '#090030',
+        secondary: '#ffff',
       },
       backgroundImage: {
         'primary-gradient': 'linear-gradient(to top, #4481eb 0%, #04befe 100%)',
@@ -51,6 +61,7 @@ module.exports = {
     }
   },
   plugins: [
+    CardAnimation,
     function ({ addUtilities }) {
       const newUtilities = {
         '.backface-hidden': {

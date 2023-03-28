@@ -9,7 +9,7 @@ import { ProviderGame } from './context/GameContext'
 
 export default function App () {
   return (
-      <div className='text-3xl h-full'>
+      <div className='text-3xl h-full w-screen'>
         <ProviderGame>
             <BrowserRouter>
 
