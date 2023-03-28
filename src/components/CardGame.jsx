@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useCards } from '../context/GameContext'
 
 export default function CardGame ({ card, setSelected, selected, maxPairNumber, setClicked, clicked }) {
-  const { setCurrentLevel, usedCards, setUsedCards, currentLevel, setCardsGame, cardsGame } = useCards()
+  const { setCurrentLevel, usedCards, setUsedCards, currentLevel, setCardsGame, cardsGame, setMove, move } = useCards()
 
   // cards found
   const [found, setFound] = useState([])
@@ -24,7 +24,13 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
   include = selected.includes(card) || found.includes(card)
 
   useEffect(() => {
+    if (move === 0) {
+      setClicked(false)
+      //! llamar modal "Has perdido"
+    }
     if (selected.length === 2) {
+      setMove(move - 1)
+
       if (selected[0].id === selected[1].id) {
         setFound(found => found.concat(selected))
         setSelected([])
@@ -47,6 +53,7 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
       setTimeout(() => setClicked(false), 2000)
       setTimeout(() => clearArrays(), 1000)
 
+      //! Current should be update with moves
       setCurrentLevel(currentLevel + 1)
       console.log('level complete')
     }

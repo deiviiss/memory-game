@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
-import { useCards } from '../context/GameContext'
 import { useEffect, useState } from 'react'
+import { useCards } from '../context/GameContext'
 import CardGame from './CardGame'
 
 export default function BoardGame ({ gameId }) {
-  const { getCardsGame, cardsGame, currentLevel, usedCards, avoidCards } = useCards()
+  const { getCardsGame, cardsGame, currentLevel, usedCards, avoidCards, setMove } = useCards()
 
   const [maxPairNumber, setMaxPairNumber] = useState('')
   const [cardsLevel, setCardsLevel] = useState([])
@@ -32,8 +32,9 @@ export default function BoardGame ({ gameId }) {
     let cards = []
 
     cards = selectRandomCards(cardsGame, currentLevel)
-
+    console.log(cards.length)
     setMaxPairNumber(cards.length)
+    setMove(cards.length + 3)
 
     const duplicateCards = cards.concat(cards)
 
@@ -44,12 +45,13 @@ export default function BoardGame ({ gameId }) {
   }
 
   const handleClick = () => {
+    //! move to cardGame props
     setClickedStart(true)
 
     if (cardsGame.length < currentLevel) {
       console.log('cards is over')
       console.log('¿What happend now?')
-      setCardsOver(false)
+      setCardsOver(true)
     } else {
       setCardsForLevel(cardsGame)
     }

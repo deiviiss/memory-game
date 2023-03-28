@@ -5,7 +5,7 @@ import { useCards } from '../context/GameContext'
 
 export default function GamePage () {
   const params = useParams()
-  const { currentLevel } = useCards()
+  const { currentLevel, move } = useCards()
 
   return (
     <>
@@ -15,12 +15,11 @@ export default function GamePage () {
         {/* level */}
         <CardBoard name={'Lvl'} data={currentLevel} />
         {/* timer */}
-        <CardBoard data={'00:00'}/>
+        <CardBoard name={'Timer'} data={'00:00'}/>
 
         {/* score */}
-        <CardBoard data={2}/>
+        <CardBoard name={'Moves'} data={move}/>
         {/* attempts */}
-        <CardBoard data={4}/>
       </div>
 </>
   )
