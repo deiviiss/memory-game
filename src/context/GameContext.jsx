@@ -12,17 +12,18 @@ export const useCards = () => {
 }
 
 export const ProviderGame = ({ children }) => {
-  const [cardsGame, setCardsGame] = useState()
-  const [currentLevel, setCurrentLevel] = useState(2)
+  const [cardsGame, setCardsGame] = useState([])
+  const [currentLevel, setCurrentLevel] = useState(1)
   const [usedCards, setUsedCards] = useState([])
+  const [move, setMove] = useState(0)
 
   //! ¿avoidCards should delete from original cardsGame?
   //! When compare cardsGame with currentLevel in selectRamdonCards() condition is true but is not there card, cards is on avoidCards
   const [avoidCards, setAvoidCards] = useState([])
 
   const getCardsGame = async (gameId) => {
-    const rta = await getGameRequest(gameId)
-    setCardsGame(rta)
+    const cards = await getGameRequest(gameId)
+    setCardsGame(cards)
   }
 
   return (
@@ -35,7 +36,9 @@ export const ProviderGame = ({ children }) => {
       usedCards,
       setUsedCards,
       avoidCards,
-      setAvoidCards
+      setAvoidCards,
+      move,
+      setMove
     }}>
       {children}
     </GameContext.Provider>

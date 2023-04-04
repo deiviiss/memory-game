@@ -7,13 +7,14 @@ const apis = [
   {
     gameId: 2,
     nameGame: 'Pokemon',
-    urlApi: 'https://rickandmortyapi.com/api/character'
+    urlApi: 'https://pokeapi.co/api/v2/pokemon/'
   }
 ]
 
 export const endPoints = {
   games: {
-    rickymorty: 'https://rickandmortyapi.com/api/character'
+    rickymorty: 'https://rickandmortyapi.com/api/character',
+    pokemon: 'https://pokeapi.co/api/v2/pokemon/'
   }
 }
 
