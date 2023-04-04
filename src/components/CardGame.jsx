@@ -69,7 +69,7 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
         </div>
 
         <div className={`absolute h-32 w-24 backface-hidden overflow-hidden duration-500  ${include ? '' : 'rotate-y-180'}`}>
-          <img className="w-full h-full object-fill rounded-md" src={card.image} alt={card.name} />
+          <img className="w-full h-full object-cover rounded-md" src={card.image} alt={card.name} />
         </div>
 
       </div>
