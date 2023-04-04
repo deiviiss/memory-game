@@ -5,12 +5,17 @@ const getGameRequest = async (gameId) => {
 
   let allData = []
 
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < 2; i++) {
     const response = await fetch(url)
     const data = await response.json()
 
     allData = allData.concat(data.results)
-    url = data.info.next
+
+    if (data.info) {
+      url = data.info.next
+    } else {
+      url = data.next
+    }
   }
 
   return allData

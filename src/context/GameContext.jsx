@@ -13,7 +13,7 @@ export const useCards = () => {
 
 export const ProviderGame = ({ children }) => {
   const [cardsGame, setCardsGame] = useState([])
-  const [currentLevel, setCurrentLevel] = useState(2)
+  const [currentLevel, setCurrentLevel] = useState(1)
   const [usedCards, setUsedCards] = useState([])
   const [move, setMove] = useState(0)
 

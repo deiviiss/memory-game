@@ -52,9 +52,8 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
 
       setTimeout(() => setClicked(false), 2000)
       setTimeout(() => clearArrays(), 1000)
+      setTimeout(() => setCurrentLevel(currentLevel + 1), 3000)
 
-      //! Current should be update with moves
-      setCurrentLevel(currentLevel + 1)
       console.log('level complete')
     }
   }, [found])
