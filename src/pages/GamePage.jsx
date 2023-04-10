@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+//! change to relative paths ../ to src/ (next commit)
 import BoardGame from '../components/BoardGame'
 import CardBoard from '../components/CardBoard'
 import { useCards } from '../context/GameContext'

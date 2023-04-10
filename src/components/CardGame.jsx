@@ -9,9 +9,10 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
   // cards found
   const [found, setFound] = useState([])
 
-  const handleClick = (item) => {
-    if (selected.length < 2) {
-      setSelected(selected => selected.concat(item))
+  const handleClick = (card) => {
+    if (!selected.includes(card) && selected.length <= 2 && !found.includes(card)) {
+      console.log('card add to select')
+      setSelected(selected => selected.concat(card))
     }
   }
 
@@ -21,7 +22,6 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
   }
 
   let include = false
-
   include = selected.includes(card) || found.includes(card)
 
   useEffect(() => {
