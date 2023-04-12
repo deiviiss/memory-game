@@ -38,7 +38,7 @@ export default function GamePage () {
           <button className="block px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700" onClick={() => changeModalState3(!modalState3)}>Modal Retry</button>
         </div>
 
-        {/* Modal start */}
+        {/* Modal start, this one stays here */}
         <Modal
           state={modalState1}
           changeState={changeModalState1}

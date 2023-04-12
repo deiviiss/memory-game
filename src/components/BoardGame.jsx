@@ -62,6 +62,7 @@ export default function BoardGame ({ gameId, clickedStart, setClickedStart }) {
     if (cardsGame.length < currentLevel) {
       console.log('cards is over')
       console.log('¿What happend now?')
+      // Modal continue here
       setCanPlay(false)
     } else {
       setCardsForLevel(cardsGame)
