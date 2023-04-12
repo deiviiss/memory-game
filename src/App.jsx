@@ -18,8 +18,6 @@ export default function App () {
                 <Routes>
                     <Route element={<HomePage />} path="/"/>
                     <Route element={<GamesPage />} path="/games/*">
-                      {/* Pagina dentro de pagina */}
-                      {/* <Route element={<h1>Tablero</h1>} path="ricky"/>  */}
                     </ Route>
                     <Route element={<GamePage />} path="/games/:gameId"/>
                     <Route element={<NotFoundPage />} path="*"/>
