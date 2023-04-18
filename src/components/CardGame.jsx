@@ -27,7 +27,6 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
   useEffect(() => {
     if (move === 0) {
       setClicked(false)
-      //! llamar modal "Has perdido"
     }
     if (selected.length === 2) {
       setMove(move - 1)
@@ -65,7 +64,7 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
       <div className={`w-24 h-32 bg-transparent cursor-pointer preserve-3d perspective relative ${clicked ? '' : 'hidden'} `}>
 
         <div className={`absolute h-32 w-24 backface-hidden duration-500 ${include ? 'rotate-y-180' : ''}`}>
-            <img className="w-full h-full object-cover rounded-md" src={cardImg} alt={card.name} />
+          <img className="w-full h-full object-cover rounded-md" src={cardImg} alt={card.name} />
         </div>
 
         <div className={`absolute h-32 w-24 backface-hidden overflow-hidden duration-500  ${include ? '' : 'rotate-y-180'}`}>
