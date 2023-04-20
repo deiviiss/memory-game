@@ -2,15 +2,17 @@ import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useCards } from '../context/GameContext'
 import CardGame from './CardGame'
-
+import Modal from './Modal'
 export default function BoardGame ({ gameId, clickedStart, setClickedStart }) {
-  const { getCardsGame, cardsGame, currentLevel, usedCards, avoidCards, setMove } = useCards()
+  const { getCardsGame, cardsGame, currentLevel, usedCards, avoidCards, setMove, move } = useCards()
 
   const [maxPairNumber, setMaxPairNumber] = useState('')
   const [cardsLevel, setCardsLevel] = useState([])
 
   const [selected, setSelected] = useState([]) // cards select
   const [canPlay, setCanPlay] = useState(false)
+
+  const [modal, changeModal] = useState(true);
 
   useEffect(() => {
     getCardsGame(gameId)
@@ -62,7 +64,6 @@ export default function BoardGame ({ gameId, clickedStart, setClickedStart }) {
     if (cardsGame.length < currentLevel) {
       console.log('cards is over')
       console.log('¿What happend now?')
-      // Modal continue here
       setCanPlay(false)
     } else {
       setCardsForLevel(cardsGame)
@@ -72,7 +73,19 @@ export default function BoardGame ({ gameId, clickedStart, setClickedStart }) {
 
   return (
     <div className='flex justify-center items-center z-40 h-full'>
-      <button className={clickedStart || cardsGame === undefined ? 'hidden' : ''} onClick={handleClick}>Start</button>
+      <button className={clickedStart || cardsGame === undefined ? 'hidden' : ''} onClick={handleClick}>      
+        <Modal
+            state={modal}
+            changeState={changeModal}
+            title={currentLevel <= 1 ? 'Lets play!' : (move === 0 ? 'Sorry, you lost' : 'Ready for next level?')}
+          >
+            <div className='flex items-center my-4'>
+              <button className="px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700" onClick={() => changeModal(modal)}>Go home</button>
+              <button className="px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700" onClick={() => changeModal(modal)}>{currentLevel <= 1 ? 'Start' : (move === 0 ? 'Retry' : 'Continue')}</button>
+            </div>
+        </Modal>
+      </button>
+
       <ul className={`px-4 grid justify-center items-center auto-cols-min grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${canPlay ? '' : 'hidden'}`}>
         {
           cardsLevel?.map((card, index) => (

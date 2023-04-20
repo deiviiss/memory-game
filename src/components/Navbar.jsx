@@ -2,7 +2,7 @@ import DropDown from './DropDown'
 
 export default function Navbar () {
   return (
-    <div className='w-full flex justify-between p-2 shadow'>
+    <nav className='w-full flex justify-between p-2 shadow'>
       <h1 className='text-3xl font-extrabold w-2/3'>Memo Cards</h1>
       <ul className='flex flex-row text-center items-center justify-around w-1/3'>
         <li className='duration-400 active:text-secondary'>
@@ -12,6 +12,6 @@ export default function Navbar () {
         </li>
         <DropDown />
       </ul>
-    </div>
+    </nav>
   )
 }
