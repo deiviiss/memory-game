@@ -3,7 +3,7 @@ import cardImg from '../../public/imgs/card.jpg'
 
 export default function CardGame ({ card, setSelectedCard, selectedCard, foundCard, showAllCards }) {
   const handleClickCard = (card) => {
-    if (!selectedCard.includes(card) && selectedCard.length <= 2 && !foundCard.includes(card)) {
+    if (!selectedCard.includes(card) && selectedCard.length < 2 && !foundCard.includes(card)) {
       console.log('card add to select')
       setSelectedCard(selectedCard => selectedCard.concat(card))
     }
