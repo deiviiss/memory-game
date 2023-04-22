@@ -1,67 +1,21 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
-import { useCards } from '../context/GameContext'
 import cardImg from '../../public/imgs/card.jpg'
 
-export default function CardGame ({ card, setSelected, selected, maxPairNumber, setClicked, clicked }) {
-  const { setCurrentLevel, usedCards, setUsedCards, currentLevel, setCardsGame, cardsGame, setMove, move } = useCards()
-
-  // cards found
-  const [found, setFound] = useState([])
-
-  const handleClick = (card) => {
-    if (!selected.includes(card) && selected.length <= 2 && !found.includes(card)) {
+export default function CardGame ({ card, setSelectedCard, selectedCard, foundCard }) {
+  const handleClickCard = (card) => {
+    if (!selectedCard.includes(card) && selectedCard.length <= 2 && !foundCard.includes(card)) {
       console.log('card add to select')
-      setSelected(selected => selected.concat(card))
+      setSelectedCard(selectedCard => selectedCard.concat(card))
     }
-  }
-
-  const clearArrays = () => {
-    setSelected([])
-    setFound([])
   }
 
   let include = false
-  include = selected.includes(card) || found.includes(card)
-
-  useEffect(() => {
-    if (move === 0) {
-      setClicked(false)
-    }
-    if (selected.length === 2) {
-      setMove(move - 1)
-
-      if (selected[0].id === selected[1].id) {
-        setFound(found => found.concat(selected))
-        setSelected([])
-      } else {
-        setTimeout(() => setSelected([]), 1000)
-      }
-    }
-  }, [selected])
-
-  useEffect(() => {
-    if (found.length === (maxPairNumber * 2)) {
-      const newUsedCards = found.concat(usedCards)
-      setUsedCards(newUsedCards)
-
-      // delete usedCards from cardsGame
-      const result = cardsGame.filter(card => !newUsedCards.some(newUsedCard => newUsedCard.id === card.id))
-
-      setCardsGame(result)
-
-      setTimeout(() => setClicked(false), 2000)
-      setTimeout(() => clearArrays(), 1000)
-      setTimeout(() => setCurrentLevel(currentLevel + 1), 3000)
-
-      console.log('level complete')
-    }
-  }, [found])
+  include = selectedCard.includes(card) || foundCard.includes(card)
 
   return (
-    <li onClick={() => handleClick(card)} className="flex items-center justify-center py-4" >
+    <li onClick={() => handleClickCard(card)} className="flex items-center justify-center py-4" >
 
-      <div className={`w-24 h-32 bg-transparent cursor-pointer preserve-3d perspective relative ${clicked ? '' : 'hidden'} `}>
+      <div className={'w-24 h-32 bg-transparent cursor-pointer preserve-3d perspective relative'}>
 
         <div className={`absolute h-32 w-24 backface-hidden duration-500 ${include ? 'rotate-y-180' : ''}`}>
           <img className="w-full h-full object-cover rounded-md" src={cardImg} alt={card.name} />
@@ -78,9 +32,7 @@ export default function CardGame ({ card, setSelected, selected, maxPairNumber, 
 
 CardGame.propTypes = {
   card: PropTypes.object.isRequired,
-  selected: PropTypes.array,
-  setSelected: PropTypes.func,
-  maxPairNumber: PropTypes.number,
-  setClicked: PropTypes.any,
-  clicked: PropTypes.bool
+  selectedCard: PropTypes.array,
+  setSelectedCard: PropTypes.func,
+  foundCard: PropTypes.array
 }

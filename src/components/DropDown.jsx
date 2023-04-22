@@ -25,7 +25,7 @@ export default function DropDown () {
   const menuItems = [
     { label: 'Home', link: '/' },
     { label: 'Games', link: '/games' },
-    { label: 'Login', link: '/login' },
+    { label: 'Login', link: '/login' }
   ]
 
   return (
@@ -40,7 +40,7 @@ export default function DropDown () {
     <li className="w-full flex justify-center items-center" key={item.link}>
       <NavLink
         to={item.link}
-        activeClassName=".active"
+        activeclassname=".active"
         className="hover:text-secondary"
         onClick={() => setIsOpen(false)}
       >
