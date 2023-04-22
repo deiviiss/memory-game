@@ -14,6 +14,8 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
   const [selectedCard, setSelectedCard] = useState([]) // cards selected
   const [foundCard, setFoundCard] = useState([]) // cards found
 
+  const [showAllCards, setShowAllCards] = useState(false)
+
   const [modal, changeModal] = useState(true)
 
   const selectRandomCards = (cards, numCards) => {
@@ -63,6 +65,8 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
 
   const handleClickedStart = () => {
     setClickedStart(false)
+    setShowAllCards(true)
+    setTimeout(() => setShowAllCards(false), 2000)
 
     if (cardsGame.length < currentLevel) {
       console.log('¿What happend now? There are no more cards to use at the current level')
@@ -110,6 +114,7 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
 
 <button className={`px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 ${clickedStart && cardsGame.length !== 0 ? '' : 'hidden'}`} onClick={handleClickedStart}>
         Start
+        {/*  */}
       </button>
 
 { /* <Modal
@@ -127,7 +132,7 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
   <ul className={`px-4 grid justify-center items-center auto-cols-min grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${!canPlay ? 'hidden' : ''}`}>
     {
       cardsLevel?.map((card, index) => (
-        <CardGame key={index} card={card} setSelectedCard={setSelectedCard} selectedCard={selectedCard} foundCard={foundCard} />
+        <CardGame key={index} card={card} setSelectedCard={setSelectedCard} selectedCard={selectedCard} foundCard={foundCard} showAllCards={showAllCards}/>
       ))
     }
   </ul>

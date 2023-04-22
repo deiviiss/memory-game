@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import cardImg from '../../public/imgs/card.jpg'
 
-export default function CardGame ({ card, setSelectedCard, selectedCard, foundCard }) {
+export default function CardGame ({ card, setSelectedCard, selectedCard, foundCard, showAllCards }) {
   const handleClickCard = (card) => {
     if (!selectedCard.includes(card) && selectedCard.length <= 2 && !foundCard.includes(card)) {
       console.log('card add to select')
@@ -9,8 +9,7 @@ export default function CardGame ({ card, setSelectedCard, selectedCard, foundCa
     }
   }
 
-  let include = false
-  include = selectedCard.includes(card) || foundCard.includes(card)
+  const include = showAllCards || selectedCard.includes(card) || foundCard.includes(card)
 
   return (
     <li onClick={() => handleClickCard(card)} className="flex items-center justify-center py-4" >
@@ -34,5 +33,6 @@ CardGame.propTypes = {
   card: PropTypes.object.isRequired,
   selectedCard: PropTypes.array,
   setSelectedCard: PropTypes.func,
-  foundCard: PropTypes.array
+  foundCard: PropTypes.array,
+  showAllCards: PropTypes.bool
 }
