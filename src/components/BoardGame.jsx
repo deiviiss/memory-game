@@ -1,146 +1,202 @@
-import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
-import { useCards } from '../context/GameContext'
-import CardGame from './CardGame'
-import Modal from './Modal'
+import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
+import { useCards } from "../context/GameContext";
+import CardGame from "./CardGame";
+import Modal from "./Modal";
 
-export default function BoardGame ({ clickedStart, setClickedStart }) {
-  const { cardsGame, setCardsGame, currentLevel, setCurrentLevel, usedCards, setUsedCards, avoidCards, setMove, move } = useCards()
+export default function BoardGame({ clickedStart, setClickedStart }) {
+  const {
+    cardsGame,
+    setCardsGame,
+    currentLevel,
+    setCurrentLevel,
+    usedCards,
+    setUsedCards,
+    avoidCards,
+    setMove,
+    move,
+  } = useCards();
 
-  const [maxPairNumber, setMaxPairNumber] = useState(1)
-  const [cardsLevel, setCardsLevel] = useState([])
-  const [canPlay, setCanPlay] = useState(false)
+  const [maxPairNumber, setMaxPairNumber] = useState(1);
+  const [cardsLevel, setCardsLevel] = useState([]);
+  const [canPlay, setCanPlay] = useState(false);
 
-  const [selectedCard, setSelectedCard] = useState([]) // cards selected
-  const [foundCard, setFoundCard] = useState([]) // cards found
+  const [selectedCard, setSelectedCard] = useState([]); // cards selected
+  const [foundCard, setFoundCard] = useState([]); // cards found
 
-  const [showAllCards, setShowAllCards] = useState(false)
+  const [showAllCards, setShowAllCards] = useState(false);
 
-  const [modal, changeModal] = useState(true)
+  const [modal, setModal] = useState(true);
+  let title;
+  let buttonModal;
 
   const selectRandomCards = (cards, numCards) => {
-    let randomCards = cards.sort(() => 0.5 - Math.random()).slice(0, numCards)
+    let randomCards = cards.sort(() => 0.5 - Math.random()).slice(0, numCards);
 
     // Check cards on usedCards or avoidCards
-    while (usedCards.some(usedCard => randomCards.find(randomCard => randomCard.id === usedCard.id)) || avoidCards.some(avoidCard => randomCards.find(randomCard => randomCard.id === avoidCard.id))) {
-      randomCards = cards.sort(() => 0.5 - Math.random()).slice(0, numCards)
+    while (
+      usedCards.some((usedCard) =>
+        randomCards.find((randomCard) => randomCard.id === usedCard.id)
+      ) ||
+      avoidCards.some((avoidCard) =>
+        randomCards.find((randomCard) => randomCard.id === avoidCard.id)
+      )
+    ) {
+      randomCards = cards.sort(() => 0.5 - Math.random()).slice(0, numCards);
     }
 
-    return randomCards
-  }
+    return randomCards;
+  };
 
   const shuffleCards = (cards) => {
     // copy array to not modify
-    const shuffledCards = cards.slice()
+    const shuffledCards = cards.slice();
 
     // used Fisher-Yates
     for (let i = shuffledCards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]]
+      [shuffledCards[i], shuffledCards[j]] = [
+        shuffledCards[j],
+        shuffledCards[i],
+      ];
     }
 
-    return shuffledCards
-  }
+    return shuffledCards;
+  };
 
   const clearArrays = () => {
-    setSelectedCard([])
-    setFoundCard([])
-  }
+    setSelectedCard([]);
+    setFoundCard([]);
+  };
 
   const setCardsForLevel = () => {
-    let cards = []
+    let cards = [];
 
-    cards = selectRandomCards(cardsGame, (currentLevel + 1))
+    cards = selectRandomCards(cardsGame, currentLevel + 1);
 
-    setMaxPairNumber(cards.length)
-    setMove(cards.length + 3)
+    setMaxPairNumber(cards.length);
+    setMove(cards.length + 3);
 
-    const cardsPlay = shuffleCards(cards.concat(cards))
+    const cardsPlay = shuffleCards(cards.concat(cards));
 
-    setCardsLevel(cardsPlay.map((card, index) => {
-      const updateCard = { ...card, index }
-      return updateCard
-    }))
-  }
+    setCardsLevel(
+      cardsPlay.map((card, index) => {
+        const updateCard = { ...card, index };
+        return updateCard;
+      })
+    );
+  };
 
   const handleClickedStart = () => {
-    setClickedStart(false)
-    setShowAllCards(true)
-    setTimeout(() => setShowAllCards(false), 2000)
+    setClickedStart(false);
+    setShowAllCards(true);
+    setTimeout(() => setShowAllCards(false), 2000);
 
     if (cardsGame.length < currentLevel) {
-      console.log('¿What happend now? There are no more cards to use at the current level')
+      console.log(
+        "¿What happend now? There are no more cards to use at the current level"
+      );
     } else {
-      setCardsForLevel()
-      setCanPlay(true)
+      setCardsForLevel();
+      setCanPlay(true);
     }
-  }
+  };
 
   useEffect(() => {
-    if (move === 0) {
-      setClickedStart(true)
+    if ((move === 0) && (currentLevel > 1)) {
+      setClickedStart(true);
+      setCanPlay(false);
+      setModal(!modal)
     }
     if (selectedCard.length === 2) {
-      setMove(move - 1)
+      setMove(move - 1);
 
       if (selectedCard[0].id === selectedCard[1].id) {
-        setFoundCard(foundCard => foundCard.concat(selectedCard))
-        setSelectedCard([])
+        setFoundCard((foundCard) => foundCard.concat(selectedCard));
+        setSelectedCard([]);
       } else {
-        setTimeout(() => setSelectedCard([]), 1000)
+        setTimeout(() => setSelectedCard([]), 1000);
       }
     }
-  }, [selectedCard])
+  }, [selectedCard]);
 
   useEffect(() => {
-    if (foundCard.length === (maxPairNumber * 2)) {
-      const newUsedCards = foundCard.concat(usedCards)
-      setUsedCards(newUsedCards)
+    if (foundCard.length === maxPairNumber * 2) {
+      const newUsedCards = foundCard.concat(usedCards);
+      setUsedCards(newUsedCards);
       // delete usedCards from cardsGame
-      const result = cardsGame.filter(card => !newUsedCards.some(newUsedCard => newUsedCard.id === card.id))
-      setCardsGame(result)
+      const result = cardsGame.filter(
+        (card) =>
+          !newUsedCards.some((newUsedCard) => newUsedCard.id === card.id)
+      );
+      setCardsGame(result);
 
-      setTimeout(() => clearArrays(), 1000)
-      setTimeout(() => setCanPlay(false), 2000)
-      setTimeout(() => setClickedStart(true), 2000)
-      setTimeout(() => setCurrentLevel(currentLevel + 1), 3000)
+      setTimeout(() => clearArrays(), 1000);
+      setTimeout(() => setCanPlay(false), 2000);
+      setTimeout(() => setClickedStart(true), 2000);
+      setTimeout(() => setCurrentLevel(currentLevel + 1), 3000);
+      setTimeout(() => setModal(!modal), 2000);
 
-      console.log('level complete')
+      console.log("level complete");
     }
-  }, [foundCard])
+  }, [foundCard]);
+
+  if (currentLevel <= 1) {
+    title = "Lets play!";
+    buttonModal = "Start";
+  } else if (move === 0 && clickedStart) {
+    title = "Sorry, you lost";
+    buttonModal = "Retry"
+  } else {
+    title = "Ready for next level?";
+    buttonModal = "Sure!"
+  }
 
   return (
-    <div className='flex justify-center items-center z-40 h-full'>
-
-<button className={`px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 ${clickedStart && cardsGame.length !== 0 ? '' : 'hidden'}`} onClick={handleClickedStart}>
-        Start
-        {/*  */}
-      </button>
-
-{ /* <Modal
-            state={modal}
-            changeState={changeModal}
-            title={currentLevel <= 1 ? 'Lets play!' : (move === 0 ? 'Sorry, you lost' : 'Ready for next level?')}
+    <div className="flex justify-center items-center z-40 h-full">
+      <Modal
+        state={modal}
+        changeState={setModal}
+        title={title}
+      >
+        <div className="flex items-center my-4">
+          <button
+            className="px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700"
+            onClick={() => setModal(modal)}
           >
-            <div className='flex items-center my-4'>
-              <button className="px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700" onClick={() => changeModal(modal)}>Go home</button>
-              <button className="px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700" onClick={() => changeModal(modal)}>{currentLevel <= 1 ? 'Start' : (move === 0 ? 'Retry' : 'Continue')}</button>
-            </div>
-        </Modal> */ }
+            Go home
+          </button>
+          <button
+            className={`px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700`}
+            onClick={() => {setModal(!modal); handleClickedStart()}}
+          >
+            {buttonModal}
+        </button>
+        </div>
+      </Modal>
 
-{cardsLevel.length > 0 &&
-  <ul className={`px-4 grid justify-center items-center auto-cols-min grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${!canPlay ? 'hidden' : ''}`}>
-    {
-      cardsLevel?.map((card, index) => (
-        <CardGame key={index} card={card} setSelectedCard={setSelectedCard} selectedCard={selectedCard} foundCard={foundCard} showAllCards={showAllCards}/>
-      ))
-    }
-  </ul>
-}
+      {cardsLevel.length > 0 && (
+        <ul
+          className={`px-4 grid justify-center items-center auto-cols-min grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${
+            !canPlay ? "hidden" : ""
+          }`}
+        >
+          {cardsLevel?.map((card, index) => (
+            <CardGame
+              key={index}
+              card={card}
+              setSelectedCard={setSelectedCard}
+              selectedCard={selectedCard}
+              foundCard={foundCard}
+              showAllCards={showAllCards}
+            />
+          ))}
+        </ul>
+      )}
     </div>
-  )
+  );
 }
 BoardGame.propTypes = {
   setClickedStart: PropTypes.any,
-  clickedStart: PropTypes.bool
-}
+  clickedStart: PropTypes.bool,
+};
