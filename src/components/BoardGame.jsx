@@ -159,9 +159,9 @@ export default function BoardGame({ clickedStart, setClickedStart }) {
         changeState={setModal}
         title={title}
       >
-        <div className="flex items-center my-4">
+        <div className="flex flex-col items-center my-2 space-x-2 space-y-2">
           <button
-            className="px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700"
+            className="px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap"
             onClick={() => setModal(modal)}
           >
             Go home
@@ -177,7 +177,7 @@ export default function BoardGame({ clickedStart, setClickedStart }) {
 
       {cardsLevel.length > 0 && (
         <ul
-          className={`px-4 grid justify-center items-center auto-cols-min grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${
+          className={`w-full px-6 grid justify-center items-center auto-cols-min grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${
             !canPlay ? "hidden" : ""
           }`}
         >
