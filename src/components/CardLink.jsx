@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
-export default function CardLink({ link }) {
+export default function CardLink ({ link }) {
   return (
     <div className="flex justify-around items-center text-center my-4 px-2 bg-secondary-gradient bg-no-repeat rounded-md w-full h-24 text-secondary hover:border-2 hover:border-secondary">
       <Link to={`/games/${link.gameId}`} as="div" className="flex flex-col justify-between w-3/4 pt-3">
@@ -59,9 +59,9 @@ export default function CardLink({ link }) {
         </svg>
       </div>
     </div>
-  );
+  )
 }
 
 CardLink.propTypes = {
-  link: PropTypes.object.isRequired,
-};
+  link: PropTypes.object.isRequired
+}
