@@ -27,8 +27,26 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
   const [showAllCards, setShowAllCards] = useState(false)
 
   const [modal, setModal] = useState(true)
+  const [level, setLevel] = useState(0)
+  const [levelComplete, setLevelComplete] = useState(false)
+
   let title
   let buttonModal
+
+  useEffect(() => {
+    setLevel(currentLevel)
+  }, [currentLevel])
+
+  // Lógica adicional basada en el valor de "level"
+  useEffect(() => {
+    if (level !== 0) {
+      setLevelComplete(true)
+      console.log("level complete", levelComplete)
+    } else {
+      setLevelComplete(false)
+      console.log("Level incomplete", levelComplete)
+    }
+  }, [level])
 
   const selectRandomCards = (cards, numCards) => {
     let randomCards = cards.sort(() => 0.5 - Math.random()).slice(0, numCards)
@@ -102,25 +120,12 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
     }
   }
 
-  // if (currentLevel > 1) {
-  //   useEffect(() => {
-  //   }, [currentLevel])
-  // }
-
-  let changedLevel = false
-  console.log(currentLevel)
-  useEffect(() => {
-    // una vez cuando carga y cada que cambie nivel
-    if (currentLevel > 1) {
-      changedLevel = true
-    }
-  }, [currentLevel])
-
   useEffect(() => {
     if ((move === 0) && (currentLevel > 1)) {
       setClickedStart(true)
       setCanPlay(false)
       setTimeout(() => setModal(!modal), 2000)
+      setLevelComplete(false)
     }
     if (selectedCard.length === 2) {
       setMove(move - 1)
@@ -149,18 +154,19 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
       setTimeout(() => setCanPlay(false), 2000)
       setTimeout(() => setClickedStart(true), 2000)
       setTimeout(() => setCurrentLevel(currentLevel + 1), 3000)
-      setTimeout(() => setModal(!modal), 3000)
-
-      console.log('level complete')
+      setTimeout(() => setModal(!modal), 4000)
     }
   }, [foundCard])
-  console.log(changedLevel)
+
   if (currentLevel <= 1) {
     title = 'Lets play!'
     buttonModal = 'Start'
-  } else if (move === 0 && !changedLevel) {
+  } else if (move === 0 && !levelComplete) {
     title = 'Sorry, you lost'
     buttonModal = 'Retry'
+  } else if (move !== 0 && levelComplete) {
+    title = 'Ready for next level?'
+    buttonModal = 'Sure!'
   } else {
     title = 'Ready for next level?'
     buttonModal = 'Sure!'
