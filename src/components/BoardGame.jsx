@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { useCards } from '../context/GameContext'
 import CardGame from './CardGame'
-import Modal from './Modal'
+import Modal from './Modal2'
 
-export default function BoardGame ({ clickedStart, setClickedStart }) {
+export default function BoardGame ({ canPlay, setCanPlay }) {
   const {
     cardsGame,
     setCardsGame,
@@ -19,16 +19,19 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
 
   const [maxPairNumber, setMaxPairNumber] = useState(1)
   const [cardsLevel, setCardsLevel] = useState([])
-  const [canPlay, setCanPlay] = useState(false)
 
   const [selectedCard, setSelectedCard] = useState([]) // cards selected
   const [foundCard, setFoundCard] = useState([]) // cards found
 
   const [showAllCards, setShowAllCards] = useState(false)
 
-  const [modal, setModal] = useState(true)
-  let title
-  let buttonModal
+  const [openModal, setOpenModal] = useState(true)
+
+  const [infoModal, setInfoModal] = useState({
+    buttonLabel: 'Start',
+    title: 'Lets play'
+    // Podemos agregar más info al modal desde aquí.
+  })
 
   const selectRandomCards = (cards, numCards) => {
     let randomCards = cards.sort(() => 0.5 - Math.random()).slice(0, numCards)
@@ -64,11 +67,6 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
     return shuffledCards
   }
 
-  const clearArrays = () => {
-    setSelectedCard([])
-    setFoundCard([])
-  }
-
   const setCardsForLevel = () => {
     let cards = []
 
@@ -88,7 +86,8 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
   }
 
   const handleClickedStart = () => {
-    setClickedStart(false)
+    // setClickedStart(false)
+    setOpenModal(false)
     setShowAllCards(true)
     setTimeout(() => setShowAllCards(false), 2000)
 
@@ -102,26 +101,64 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
     }
   }
 
-  // if (currentLevel > 1) {
-  //   useEffect(() => {
-  //   }, [currentLevel])
-  // }
+  const clearArrays = () => {
+    setSelectedCard([])
+    setFoundCard([])
+  }
 
-  let changedLevel = false
-  console.log(currentLevel)
-  useEffect(() => {
-    // una vez cuando carga y cada que cambie nivel
-    if (currentLevel > 1) {
-      changedLevel = true
+  const checkIsWon = () => {
+    // comprobar si los momientos son 0
+    if (move === 0) {
+      console.log(move)
+      // si son 0 comprobar si los pares son iguales a found
+      if (foundCard.length === maxPairNumber * 2) {        
+        playerWins()
+      } else if (foundCard.length !== maxPairNumber * 2){
+          console.log('player loses')
+        playerLoses()
+      }
+      // if (move === 0 && foundCard.length === maxPairNumber * 2) {
+      //   console.log('player loses')
+      //   playerLoses()
+      // }
     }
-  }, [currentLevel])
 
-  useEffect(() => {
-    if ((move === 0) && (currentLevel > 1)) {
-      setClickedStart(true)
-      setCanPlay(false)
-      setTimeout(() => setModal(!modal), 2000)
+    // si no son 0 comprobar si estan completos
+    if (foundCard.length === maxPairNumber * 2) {
+      playerWins()
     }
+  }
+
+  const playerLoses = () => {
+    console.log('detengo el juego por que perdio, no tiene movimientos y no alcanzo los pares') // ya no se ejecuta en el primer render
+    setTimeout(() => clearArrays(), 1000)
+    setTimeout(() => setCanPlay(false), 2000)
+    setInfoModal({ buttonLabel: 'Retry!', title: 'Sorry, you lost' })
+    setTimeout(() => setOpenModal(true), 2000)
+    console.log('level incomplete')
+  }
+
+  const playerWins = () => {
+    const newUsedCards = foundCard.concat(usedCards)
+    setUsedCards(newUsedCards)
+    // delete usedCards from cardsGame
+    const result = cardsGame.filter(
+      (card) =>
+        !newUsedCards.some((newUsedCard) => newUsedCard.id === card.id)
+    )
+    setCardsGame(result)
+
+    setTimeout(() => clearArrays(), 1000)
+    setTimeout(() => setCanPlay(false), 2000)
+    setInfoModal({ buttonLabel: 'Sure!', title: 'Ready for next level?' })
+    setTimeout(() => setCurrentLevel(currentLevel + 1), 3000)
+    setTimeout(() => setOpenModal(true), 2000)
+    console.log('level complete')
+  }
+
+  // si ya hay dos cartas en el arreglo de select
+  useEffect(() => {
+    // compara si son iguales, si lo son las agrega al arreglo de found
     if (selectedCard.length === 2) {
       setMove(move - 1)
 
@@ -132,43 +169,47 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
         setTimeout(() => setSelectedCard([]), 1000)
       }
     }
-  }, [selectedCard])
 
-  useEffect(() => {
-    if (foundCard.length === maxPairNumber * 2) {
-      const newUsedCards = foundCard.concat(usedCards)
-      setUsedCards(newUsedCards)
-      // delete usedCards from cardsGame
-      const result = cardsGame.filter(
-        (card) =>
-          !newUsedCards.some((newUsedCard) => newUsedCard.id === card.id)
-      )
-      setCardsGame(result)
-
-      setTimeout(() => clearArrays(), 1000)
-      setTimeout(() => setCanPlay(false), 2000)
-      setTimeout(() => setClickedStart(true), 2000)
-      setTimeout(() => setCurrentLevel(currentLevel + 1), 3000)
-      setTimeout(() => setModal(!modal), 3000)
-
-      console.log('level complete')
+    if (canPlay) {
+      checkIsWon()
     }
-  }, [foundCard])
-  console.log(changedLevel)
-  if (currentLevel <= 1) {
-    title = 'Lets play!'
-    buttonModal = 'Start'
-  } else if (move === 0 && !changedLevel) {
-    title = 'Sorry, you lost'
-    buttonModal = 'Retry'
-  } else {
-    title = 'Ready for next level?'
-    buttonModal = 'Sure!'
+
+  }, [selectedCard, foundCard])
+
+  // useEffect de foundCard se activa cuando es llamado por setSelect
+  // useEffect(() => {
+    // si no puede jugar no llamo a la función que checa si gano
+    // if (canPlay) {
+    //   checkIsWon()
+    // }
+  // }, [foundCard])
+
+  // ambos useEffect se activan en el primer render
+
+  const InfoModal = () => {
+    return (
+       <>
+       <div className="flex items-center px-2 ">
+          <h3 className="text-4xl">{infoModal.title}</h3>
+        </div>
+      <div className="flex flex-col items-center my-2 space-x-2 space-y-2">
+        <button className="px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap">
+        Go home
+        </button>
+        <button
+            className={'px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700'}
+            onClick={handleClickedStart}
+          >
+            {infoModal.buttonLabel}
+        </button>
+      </div>
+        </>
+    )
   }
 
   return (
     <div className="flex justify-center items-center z-40 h-full">
-      <Modal
+      {/* <Modal
         state={modal}
         changeState={setModal}
         title={title}
@@ -187,6 +228,10 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
             {buttonModal}
         </button>
         </div>
+      </Modal> */}
+
+      <Modal open={openModal} setOpen={setOpenModal} title={'Modal'}>
+       <InfoModal />
       </Modal>
 
       {cardsLevel.length > 0 && (
@@ -211,6 +256,6 @@ export default function BoardGame ({ clickedStart, setClickedStart }) {
   )
 }
 BoardGame.propTypes = {
-  setClickedStart: PropTypes.any,
-  clickedStart: PropTypes.bool
+  canPlay: PropTypes.bool,
+  setCanPlay: PropTypes.any
 }
