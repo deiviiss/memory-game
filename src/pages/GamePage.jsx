@@ -9,7 +9,7 @@ export default function GamePage () {
   const params = useParams()
   const { getCardsGame, currentLevel, move } = useCards()
 
-  const [clickedStart, setClickedStart] = useState(true)
+  const [canPlay, setCanPlay] = useState(false)
 
   useEffect(() => {
     getCardsGame(parseInt(params.gameId))
@@ -17,9 +17,9 @@ export default function GamePage () {
 
   return (
     <>
-      <BoardGame clickedStart = {clickedStart} setClickedStart={setClickedStart}/>
+      <BoardGame canPlay = {canPlay} setCanPlay={setCanPlay}/>
 
-      <div className={`flex w-full flex-row justify-around items-center mb-3 fixed bottom-0 left-0 bg-secondary-gradient bg-no-repeat ${clickedStart ? 'hidden' : ''}`}>
+      <div className={`flex w-full flex-row justify-around items-center mb-3 fixed bottom-0 left-0 bg-secondary-gradient bg-no-repeat ${canPlay ? '' : 'hidden'}`}>
         {/* level */}
         <CardBoard name={'Lvl'} data={currentLevel} />
         {/* timer */}
