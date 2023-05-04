@@ -1,23 +1,23 @@
 import { Link } from 'react-router-dom'
 
 export default function LoginPage () {
-    return (
+  return (
       <div className="flex w-screen text-secondary overflow-hidden">
         <div className="flex flex-col justify-evenly bg-secondary-gradient h-auto w-full my-8 mx-4 rounded-md">
-            <Link to="/signup" className="flex justify-end text-2xl pt-4 pr-2">Don't have an account? Sign up!</Link>
+            <Link to="/signup" className="flex justify-end text-xl pt-4 pr-2">Don&apos;t have an account? Sign up!</Link>
             <div className="flex flex-col items-center space-y-2">
-                <h4 className="text-4xl font-bold pb-2">Login To Your Account</h4>
+                <h4 className="text-4xl font-bold">Login To Your Account</h4>
                 <form className="flex flex-col space-y-1 w-full items-center">
                     <input className="w-3/4 text-2xl text-center rounded-sm"type="email" placeholder="Email"/>
-                    <input className="w-3/4 text-2xl text-center rounded-sm"type="password" placeholder="Password"/>        
-                    <input className="bg-modal-gradient w-3/4 h-12 rounded-lg text-primary border border-primary" type="submit" value="Log In"/>   
+                    <input className="w-3/4 text-2xl text-center rounded-sm"type="password" placeholder="Password"/>
+                    <input className="bg-modal-gradient w-3/4 h-12 rounded-lg text-primary border border-primary" type="submit" value="Log In"/>
                 </form>
-                <div className="flex justify-around text-xl w-full px-2">
+                <div className="flex justify-around text-xl w-full px-2 py-2">
                     <div className="w-1/2 space-x-1">
                         <input type="checkbox" id="remember" name="remember" />
                         <span>Remember Me</span>
                     </div>
-                    <a className="w-1/2">Forgot your password?</a>    
+                    <a className="w-1/2">Forgot your password?</a>
                 </div>
             </div>
             <div className="flex flex-col w-full items-center space-y-1 pb-4">
@@ -27,5 +27,5 @@ export default function LoginPage () {
             </div>
         </div>
       </div>
-    )
+  )
 }
