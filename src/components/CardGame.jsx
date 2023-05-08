@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types'
 import cardImg from '../../public/imgs/card.jpg'
 
-export default function CardGame ({ card, setSelectedCard, selectedCard, foundCard, showAllCards }) {
+export default function CardGame ({ card, setSelectedCard, selectedCard, foundCard, showAllCards, timerOn, setTimerOn }) {
   const handleClickCard = (card) => {
+    if (timerOn === false) {
+      setTimerOn(true)
+    }
+
     if (!selectedCard.includes(card) && selectedCard.length < 2 && !foundCard.includes(card)) {
       console.log('card add to select')
       setSelectedCard(selectedCard => selectedCard.concat(card))
@@ -28,11 +32,13 @@ export default function CardGame ({ card, setSelectedCard, selectedCard, foundCa
     </li>
   )
 }
-
+//! colocar propiedades correctas
 CardGame.propTypes = {
   card: PropTypes.object.isRequired,
   selectedCard: PropTypes.array,
   setSelectedCard: PropTypes.func,
   foundCard: PropTypes.array,
-  showAllCards: PropTypes.bool
+  showAllCards: PropTypes.bool,
+  timerOn: PropTypes.any,
+  setTimerOn: PropTypes.any
 }
