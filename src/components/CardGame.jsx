@@ -14,14 +14,14 @@ export default function CardGame ({ card, setSelectedCard, selectedCard, foundCa
   return (
     <li onClick={() => handleClickCard(card)} className="flex items-center justify-center py-4" >
 
-      <div className={'w-24 h-32 bg-transparent cursor-pointer preserve-3d perspective relative'}>
+      <div className={'w-24 h-36 bg-transparent cursor-pointer preserve-3d perspective relative'}>
 
-        <div className={`absolute h-32 w-24 backface-hidden duration-500 ${include ? 'rotate-y-180' : ''}`}>
-          <img className="w-full h-full object-cover rounded-md" src={cardImg} alt={card.name} />
+        <div className={`absolute h-36 w-24 backface-hidden duration-500 ${include ? 'rotate-y-180' : ''}`}>
+          <img className="w-full h-full object-cover rounded-md border-2 border-primary drop-shadow-lg" src={cardImg} alt={card.name} />
         </div>
 
-        <div className={`absolute h-32 w-24 backface-hidden overflow-hidden duration-500  ${include ? '' : 'rotate-y-180'}`}>
-          <img className="w-full h-full object-cover rounded-md" src={card.image} alt={card.name} />
+        <div className={`absolute h-36 w-24 backface-hidden overflow-hidden duration-500  ${include ? '' : 'rotate-y-180'}`}>
+          <img className="w-full h-full object-cover rounded-md border-2 border-primary drop-shadow-lg" src={card.image} alt={card.name} />
         </div>
 
       </div>
