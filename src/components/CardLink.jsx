@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 export default function CardLink ({ link }) {
   return (
-    <div className="flex justify-around items-center text-center my-4 px-2 bg-secondary-gradient bg-no-repeat rounded-md w-full h-24 text-secondary hover:border-2 hover:border-secondary">
-      <Link to={`/games/${link.gameId}`} as="div" className="flex flex-col justify-between w-3/4 pt-3">
+    <div className="w-full h-24 flex items-center justify-around px-2 my-4 text-center bg-secondary-gradient bg-no-repeat rounded-md text-secondary hover:border-2 hover:border-secondary">
+      <Link to={`/games/${link.gameId}`} as="div" className="w-3/4 pt-3 flex flex-col justify-between">
         <span>{link.nameGame}</span>
         <div className="flex justify-between items-center">
           <div>0/0</div>

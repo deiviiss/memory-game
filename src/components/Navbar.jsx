@@ -5,10 +5,10 @@ import cardLogo from "../../public/imgs/cardIcon.svg"
 export default function Navbar() {
   return (
     <nav className="w-full flex justify-between p-2 shadow">
-      <Link to="/." className="text-3xl w-2/3 pl-2">
+      <Link to="/." className="w-2/3 pl-2 text-3xl">
         <img src={cardLogo} alt="Logo" className="w-10 h-12 rounded-md "/>
       </Link>
-      <ul className="flex flex-row text-center items-center justify-around w-1/3">
+      <ul className="w-1/3 flex flex-row text-center items-center justify-around">
         <li className="duration-400 active:text-secondary">
           <svg
             xmlns="http://www.w3.org/2000/svg"
