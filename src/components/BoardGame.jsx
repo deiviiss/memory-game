@@ -33,21 +33,6 @@ export default function BoardGame ({ canPlay, setCanPlay }) {
     // Podemos agregar más info al modal desde aquí.
   })
 
-  useEffect(() => {
-    setLevel(currentLevel)
-  }, [currentLevel])
-
-  // Lógica adicional basada en el valor de "level"
-  useEffect(() => {
-    if (level !== 0) {
-      setLevelComplete(true)
-      console.log("level complete", levelComplete)
-    } else {
-      setLevelComplete(false)
-      console.log("Level incomplete", levelComplete)
-    }
-  }, [level])
-
   const selectRandomCards = (cards, numCards) => {
     let randomCards = cards.sort(() => 0.5 - Math.random()).slice(0, numCards)
 
@@ -214,7 +199,7 @@ export default function BoardGame ({ canPlay, setCanPlay }) {
 
       {cardsLevel.length > 0 && (
         <ul
-          className={`w-full px-6 grid justify-center items-center auto-cols-min grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${
+          className={`w-full grid justify-center items-center px-4 auto-cols-min grid-cols-3 sm:grid-cols-4 md:grid-cols-6 md:px-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 ${
             !canPlay ? 'hidden' : ''
           }`}
         >
