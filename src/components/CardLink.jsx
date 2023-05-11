@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 
 export default function CardLink ({ link }) {
   return (
-    <div className="flex justify-around items-center text-center my-4 px-2 bg-secondary-gradient bg-no-repeat rounded-md w-full h-24 text-secondary hover:border-2 hover:border-secondary">
-      <Link to={`/games/${link.gameId}`} as="div" className="flex flex-col justify-between w-3/4 pt-3">
-        <span>{link.nameGame}</span>
+    <div className="w-full h-24 flex items-center justify-around px-4 my-4 text-center text-3xl bg-secondary-gradient bg-no-repeat rounded-md text-secondary hover:border-2 hover:border-secondary md:text-4xl">
+      <Link to={`/games/${link.gameId}`} as="div" className="w-3/4 h-full flex flex-col justify-around">
+        <span className="text-left whitespace-nowrap">{link.nameGame}</span>
         <div className="flex justify-between items-center">
           <div>0/0</div>
           <div>00:00</div>
@@ -15,7 +15,7 @@ export default function CardLink ({ link }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 cursor-pointer"
+            className="w-7 h-7 cursor-pointer md:w-8 md:h-8"
           >
             <path
               strokeLinecap="round"
@@ -25,12 +25,10 @@ export default function CardLink ({ link }) {
           </svg>
         </div>
       </Link>
-      <div className="w-1/4 flex flex-col items-center justify-around pl-2 space-y-4">
+      <div className="w-1/4 h-full flex flex-col items-end justify-around pl-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="icon icon-tabler icon-tabler-dots-vertical cursor-pointer"
-          width={24}
-          height={24}
+          className="w-7 h-7 icon icon-tabler icon-tabler-dots-vertical cursor-pointer md:w-8 md:h-8"
           viewBox="0 0 24 24"
           strokeWidth="2"
           stroke="currentColor"
@@ -49,7 +47,7 @@ export default function CardLink ({ link }) {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6 cursor-pointer"
+          className="w-7 h-7 cursor-pointer md:w-8 md:h-8"
         >
           <path
             strokeLinecap="round"

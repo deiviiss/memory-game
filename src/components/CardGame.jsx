@@ -16,16 +16,16 @@ export default function CardGame ({ card, setSelectedCard, selectedCard, foundCa
   const include = showAllCards || selectedCard.includes(card) || foundCard.includes(card)
 
   return (
-    <li onClick={() => handleClickCard(card)} className="flex items-center justify-center py-4" >
+    <li onClick={() => handleClickCard(card)} className="flex items-center justify-center py-2 md:py-4" >
 
-      <div className={'w-24 h-32 bg-transparent cursor-pointer preserve-3d perspective relative'}>
+      <div className={"relative w-20 h-32 bg-transparent preserve-3d perspective cursor-pointer md:w-24 md:h-36"}>
 
-        <div className={`absolute h-32 w-24 backface-hidden duration-500 ${include ? 'rotate-y-180' : ''}`}>
-          <img className="w-full h-full object-cover rounded-md" src={cardImg} alt={card.name} />
+        <div className={`absolute w-20 h-32 backface-hidden duration-500 md:w-24 md:h-36 ${include ? 'rotate-y-180' : ''}`}>
+          <img className="w-full h-full object-cover rounded-md border-2 border-primary drop-shadow-lg" src={cardImg} alt={card.name} />
         </div>
 
-        <div className={`absolute h-32 w-24 backface-hidden overflow-hidden duration-500  ${include ? '' : 'rotate-y-180'}`}>
-          <img className="w-full h-full object-cover rounded-md" src={card.image} alt={card.name} />
+        <div className={`absolute w-20 h-32 overflow-hidden backface-hidden duration-500 md:w-24 md:h-36  ${include ? '' : 'rotate-y-180'}`}>
+          <img className="w-full h-full object-cover rounded-md border-2 border-primary drop-shadow-lg" src={card.image} alt={card.name} />
         </div>
 
       </div>

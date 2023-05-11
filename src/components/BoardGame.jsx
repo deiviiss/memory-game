@@ -236,7 +236,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
 
       {cardsLevel.length > 0 && (
         <ul
-          className={`w-full px-6 grid justify-center items-center auto-cols-min grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${
+          className={`w-full grid justify-center items-center px-4 auto-cols-min grid-cols-3 sm:grid-cols-4 md:grid-cols-6 md:px-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 ${
             !canPlay ? 'hidden' : ''
           }`}
         >
