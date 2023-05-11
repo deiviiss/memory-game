@@ -4,7 +4,7 @@ import { useCards } from '../context/GameContext'
 import CardGame from './CardGame'
 import Modal from './Modal'
 
-export default function BoardGame ({ canPlay, setCanPlay }) {
+export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeElapsed, timerOn, setTimerOn }) {
   const {
     cardsGame,
     setCardsGame,
@@ -22,17 +22,21 @@ export default function BoardGame ({ canPlay, setCanPlay }) {
 
   const [selectedCard, setSelectedCard] = useState([]) // cards selected
   const [foundCard, setFoundCard] = useState([]) // cards found
-
   const [showAllCards, setShowAllCards] = useState(false)
 
+  // MODAL
   const [openModal, setOpenModal] = useState(true)
 
   const [infoModal, setInfoModal] = useState({
     buttonLabel: 'Start',
-    title: 'Lets play'
-    // Podemos agregar más info al modal desde aquí.
+    title: 'Lets play',
+    info: ''
   })
 
+  // TIMER
+  const [intervalId, setIntervalId] = useState(null)
+
+  // GAME
   const selectRandomCards = (cards, numCards) => {
     let randomCards = cards.sort(() => 0.5 - Math.random()).slice(0, numCards)
 
@@ -101,9 +105,24 @@ export default function BoardGame ({ canPlay, setCanPlay }) {
     }
   }
 
+  //! MOVE TO UTILS
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60).toString().padStart(2, '0')
+    const seconds = (time % 60).toString().padStart(2, '0')
+    return `${minutes}:${seconds}`
+  }
+
   const clearArrays = () => {
     setSelectedCard([])
     setFoundCard([])
+  }
+
+  const stopTimer = () => {
+    clearInterval(intervalId)
+  }
+
+  const resetTimer = () => {
+    setTimeElapsed(0)
   }
 
   const checkIsWon = () => {
@@ -113,7 +132,6 @@ export default function BoardGame ({ canPlay, setCanPlay }) {
       if (foundCard.length === maxPairNumber * 2) {
         playerWins()
       } else {
-        console.log('player loses')
         playerLoses()
       }
     }
@@ -125,15 +143,26 @@ export default function BoardGame ({ canPlay, setCanPlay }) {
   }
 
   const playerLoses = () => {
-    console.log('detengo el juego por que perdio, no tiene movimientos y no alcanzo los pares')
-    setTimeout(() => setCanPlay(false), 1000)
+    console.log('player loses')
+    setTimerOn(false)
+    stopTimer()
+    setCanPlay(false)
+    // setTimeout(() => setCanPlay(false), 1000) ????
+    resetTimer()
     setTimeout(() => setCardsLevel(''), 2000)
-    setInfoModal({ buttonLabel: 'Retry!', title: 'Sorry, you lost' })
+    setInfoModal({ buttonLabel: 'Retry!', title: 'Sorry, you lost', info: 'Theres is not moves' })
     setTimeout(() => setOpenModal(true), 2000)
     console.log('level incomplete')
   }
 
   const playerWins = () => {
+    console.log('player win')
+    setTimerOn(false)
+    stopTimer()
+    setCanPlay(false)
+    // setTimeout(() => setCanPlay(false), 5000) ?????
+    resetTimer()
+
     const newUsedCards = foundCard.concat(usedCards)
     setUsedCards(newUsedCards)
     // delete usedCards from cardsGame
@@ -143,21 +172,20 @@ export default function BoardGame ({ canPlay, setCanPlay }) {
     )
     setCardsGame(result)
 
-    setTimeout(() => setCanPlay(false), 1000)
     setTimeout(() => setCardsLevel(''), 2000)
-    setInfoModal({ buttonLabel: 'Sure!', title: 'Ready for next level?' })
+    setInfoModal({ buttonLabel: 'Sure!', title: 'Ready for next level?', info: formatTime(timeElapsed) })
     setTimeout(() => setCurrentLevel(currentLevel + 1), 3000)
     setTimeout(() => setOpenModal(true), 2000)
     console.log('level complete')
   }
 
-  // se activa al agregar cards to array selectCard || foundCard
   useEffect(() => {
-    // compara si son iguales, si lo son las agrega al arreglo de found
+    // Se ejecuta al voltear 2 cartas
     if (selectedCard.length === 2) {
       console.log('se ejecuta al voltear 2 cartas')
       setMove(move - 1)
 
+      // compara si son iguales, si lo son las agrega al arreglo de found
       if (selectedCard[0].id === selectedCard[1].id) {
         console.log('las cartas son iguales')
         setFoundCard((foundCard) => foundCard.concat(selectedCard))
@@ -172,10 +200,19 @@ export default function BoardGame ({ canPlay, setCanPlay }) {
     }
   }, [selectedCard, foundCard])
 
+  useEffect(() => {
+    if (timerOn) {
+      setIntervalId(setInterval(() => {
+        setTimeElapsed((prevTime) => prevTime + 1)
+      }, 1000))
+    }
+  }, [timerOn])
+
   const InfoModal = () => {
     return (
        <>
       <div className="flex flex-col items-center my-2 space-x-2 space-y-2">
+        <div>{infoModal.info}</div>
         <button className="px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap">
         Go home
         </button>
@@ -211,6 +248,10 @@ export default function BoardGame ({ canPlay, setCanPlay }) {
               selectedCard={selectedCard}
               foundCard={foundCard}
               showAllCards={showAllCards}
+              timeElapsed = {timeElapsed}
+              setTimeElapsed={setTimeElapsed}
+              timerOn = {timerOn}
+              setTimerOn = {setTimerOn}
             />
           ))}
         </ul>
@@ -220,5 +261,9 @@ export default function BoardGame ({ canPlay, setCanPlay }) {
 }
 BoardGame.propTypes = {
   canPlay: PropTypes.bool,
-  setCanPlay: PropTypes.any
+  setCanPlay: PropTypes.any,
+  setTimeElapsed: PropTypes.any,
+  timeElapsed: PropTypes.any,
+  timerOn: PropTypes.any,
+  setTimerOn: PropTypes.any
 }
