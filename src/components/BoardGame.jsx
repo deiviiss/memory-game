@@ -19,7 +19,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
 
   const [maxPairNumber, setMaxPairNumber] = useState(1)
   const [cardsLevel, setCardsLevel] = useState([])
-
+  const [cardsLoad, setCardsLoad] = useState(false)
   const [selectedCard, setSelectedCard] = useState([]) // cards selected
   const [foundCard, setFoundCard] = useState([]) // cards found
   const [showAllCards, setShowAllCards] = useState(false)
@@ -208,6 +208,13 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
     }
   }, [timerOn])
 
+  useEffect(() => {
+    if (cardsGame.length > 0) {
+      console.log('Cards load')
+      setCardsLoad(true)
+    }
+  }, [cardsGame])
+
   const InfoModal = () => {
     return (
        <>
@@ -230,9 +237,11 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   return (
     <div className="flex justify-center items-center z-40 h-full">
 
-      <Modal open={openModal} setOpen={setOpenModal} title={infoModal.title}>
+{cardsLoad
+  ? <Modal open={openModal} setOpen={setOpenModal} title={infoModal.title}>
        <InfoModal />
       </Modal>
+  : 'Cargando cartas'}
 
       {cardsLevel.length > 0 && (
         <ul
