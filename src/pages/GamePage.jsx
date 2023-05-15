@@ -3,6 +3,7 @@ import BoardGame from '../components/BoardGame'
 import CardBoard from '../components/CardBoard'
 import { useCards } from '../context/GameContext'
 import { useState, useEffect } from 'react'
+import { formatTime } from '../utils/helpers'
 
 export default function GamePage () {
   const params = useParams()
@@ -11,13 +12,6 @@ export default function GamePage () {
   const [canPlay, setCanPlay] = useState(false)
   const [timeElapsed, setTimeElapsed] = useState(0)
   const [timerOn, setTimerOn] = useState(false)
-
-  //! MOVE TO UTILS
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60).toString().padStart(2, '0')
-    const seconds = (time % 60).toString().padStart(2, '0')
-    return `${minutes}:${seconds}`
-  }
 
   useEffect(() => {
     getCardsGame(parseInt(params.gameId))

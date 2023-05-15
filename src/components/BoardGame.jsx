@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useCards } from '../context/GameContext'
 import CardGame from './CardGame'
 import Modal from './Modal'
+import { formatTime } from '../utils/helpers'
 
 export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeElapsed, timerOn, setTimerOn }) {
   const {
@@ -103,13 +104,6 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
       setCardsForLevel()
       setCanPlay(true)
     }
-  }
-
-  //! MOVE TO UTILS
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60).toString().padStart(2, '0')
-    const seconds = (time % 60).toString().padStart(2, '0')
-    return `${minutes}:${seconds}`
   }
 
   const clearArrays = () => {
