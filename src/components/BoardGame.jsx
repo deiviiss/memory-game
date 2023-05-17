@@ -213,11 +213,11 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
        <>
       <div className="flex flex-col items-center my-2 space-x-2 space-y-2">
         <div>{infoModal.info}</div>
-        <button className="px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap">
-        Go home
+        <button className="w-full px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap dark:bg-dark-secondary-gradient">
+          Go home
         </button>
         <button
-            className={'px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700'}
+            className={'w-full px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 dark:bg-dark-secondary-gradient'}
             onClick={handleClickedStart}
           >
             {infoModal.buttonLabel}

@@ -7,9 +7,9 @@ export default function DropDown () {
   const ref = useRef()
   const buttonRef = useRef()
 
-   function HandleMenu() {
-      setIsOpen(!isOpen)
-   }
+  function HandleMenu () {
+    setIsOpen(!isOpen)
+  }
 
   const menuItems = [
     { label: 'Home', link: '/' },
@@ -17,19 +17,19 @@ export default function DropDown () {
     { label: 'Login', link: '/login' }
   ]
 
-   useEffect(() => {
-     const handleClickOutside = () => {
-      setIsOpen(false);
-     };
-     if (isOpen) {
-       document.addEventListener('mousedown', handleClickOutside);
-     } else {
-       document.removeEventListener('mousedown', handleClickOutside);
-     }
-     return () => {
-       document.removeEventListener('mousedown', handleClickOutside);
-     };
-   }, [isOpen])
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setIsOpen(false)
+    }
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
 
   return (
     <div ref={ref} className="relative z-50 w-auto flex flex-col items-center rounded-md">
@@ -38,7 +38,7 @@ export default function DropDown () {
         {!isOpen ? <AiOutlineCaretDown className="h-2" /> : <AiOutlineCaretUp className="h-2" />}
       </button>
       {isOpen && (
-        <ul className="absolute w-24 mt-10 mr-6 p-2 overflow-x-hidden rounded-md bg-primary-gradient border border-primary">
+        <ul className="absolute w-24 mt-10 mr-6 p-2 overflow-x-hidden rounded-md bg-primary-gradient border border-primary dark:bg-dark-primary-gradient dark:border-secondary">
           {menuItems.map((item) => (
     <li className="w-full flex justify-center items-center" key={item.link}>
       <NavLink

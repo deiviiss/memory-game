@@ -1,9 +1,9 @@
-import DropDown from "./DropDown";
-import { Link } from "react-router-dom";
-import cardLogo from "../../public/imgs/cardIcon.svg"
+import DropDown from './DropDown'
+import { Link } from 'react-router-dom'
+import cardLogo from '../../public/imgs/cardIcon.svg'
 import Toggle from './ThemeToggle'
 
-export default function Navbar() {
+export default function Navbar () {
   return (
     <nav className="w-full flex justify-between p-2 shadow">
       <Link to="/." className="w-2/3 pl-2 text-3xl">
