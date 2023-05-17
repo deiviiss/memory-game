@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import cardImg from '../../public/imgs/card.png'
 import darkImg from '../../public/imgs/darkcard.png'
-import { ThemeContext } from './ThemeContext'
+import { ThemeContext } from '../context/ThemeContext'
 import { useContext } from 'react'
 
 export default function CardGame ({ card, setSelectedCard, selectedCard, foundCard, showAllCards, timerOn, setTimerOn }) {

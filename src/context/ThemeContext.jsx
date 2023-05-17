@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState, createContext } from 'react'
 
 const getInitialTheme = () => {
   if (typeof window !== 'undefined' && window.localStorage) {
@@ -15,8 +15,9 @@ const getInitialTheme = () => {
   }
 }
 
-export const ThemeContext = React.createContext()
+export const ThemeContext = createContext()
 
+// eslint-disable-next-line react/prop-types
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(getInitialTheme)
 

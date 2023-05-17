@@ -67,7 +67,7 @@ module.exports = {
         'modal-gradient': 'linear-gradient(to top, #ffa366 0%, #f4cda5 100%)',
         'card-gradient': 'linear-gradient(to right, #870000, #190a05)', // The Strain uigradients
         'dark-primary-gradient': 'linear-gradient(to right, #0f0c29, #302b63, #24243e)', // Lawrecium uigradients
-        'dark-secondary-gradient': 'linear-gradient(to right, #000428, #004e92)', // Frost uigradients
+        'dark-secondary-gradient': 'linear-gradient(to right, #005c97, #363795)', // Clear Sky uigradients
         'dark-modal-gradient': 'linear-gradient(to right, #200122, #6f0000)' // Love and liberty uigradients
       }
     }
