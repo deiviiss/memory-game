@@ -84,7 +84,7 @@ export default function LoginPage () {
             </svg>
             <span className="whitespace-nowrap">Sign in with Twitter</span>
           </a>
-          <a className="flex justify-around items-center h-12 w-full bg-blue-700 border border-primary rounded-lg opacity-90 cursor-pointer hover:opacity-100 lg:h-14 dark:bg-bluje-900 dark:border-secondary">
+          <a className="flex justify-around items-center h-12 w-full bg-blue-700 border border-primary rounded-lg opacity-90 cursor-pointer hover:opacity-100 lg:h-14 dark:bg-blue-900 dark:border-secondary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-brand-meta w-6 h-6 lg:w-8 lg:h-8"
