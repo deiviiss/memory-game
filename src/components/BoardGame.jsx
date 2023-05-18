@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useCards } from '../context/GameContext'
 import CardGame from './CardGame'
 import Modal from './Modal'
+import { formatTime } from '../utils/helpers'
 
 export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeElapsed, timerOn, setTimerOn }) {
   const {
@@ -19,7 +20,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
 
   const [maxPairNumber, setMaxPairNumber] = useState(1)
   const [cardsLevel, setCardsLevel] = useState([])
-
+  const [cardsLoad, setCardsLoad] = useState(false)
   const [selectedCard, setSelectedCard] = useState([]) // cards selected
   const [foundCard, setFoundCard] = useState([]) // cards found
   const [showAllCards, setShowAllCards] = useState(false)
@@ -103,13 +104,6 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
       setCardsForLevel()
       setCanPlay(true)
     }
-  }
-
-  //! MOVE TO UTILS
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60).toString().padStart(2, '0')
-    const seconds = (time % 60).toString().padStart(2, '0')
-    return `${minutes}:${seconds}`
   }
 
   const clearArrays = () => {
@@ -208,6 +202,13 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
     }
   }, [timerOn])
 
+  useEffect(() => {
+    if (cardsGame.length > 0) {
+      console.log('Cards load')
+      setCardsLoad(true)
+    }
+  }, [cardsGame])
+
   const InfoModal = () => {
     return (
        <>
@@ -230,9 +231,11 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   return (
     <div className="flex justify-center items-center z-40 h-full">
 
-      <Modal open={openModal} setOpen={setOpenModal} title={infoModal.title}>
+{cardsLoad
+  ? <Modal open={openModal} setOpen={setOpenModal} title={infoModal.title}>
        <InfoModal />
       </Modal>
+  : 'Cargando cartas'}
 
       {cardsLevel.length > 0 && (
         <ul
