@@ -120,9 +120,9 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   }
 
   const checkIsWon = () => {
-    // comprobar si los momientos son 0
+    // check if the moments are 0
     if (move === 0) {
-      // si son 0 comprobar si los pares son iguales a found
+      // if they are 0 check if the pairs are equal to found
       if (foundCard.length === maxPairNumber * 2) {
         playerWins()
       } else {
@@ -130,7 +130,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
       }
     }
 
-    // comprobar si encontro todos los pares
+    // check if found all pairs
     if (foundCard.length === maxPairNumber * 2) {
       playerWins()
     }
@@ -174,12 +174,12 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   }
 
   useEffect(() => {
-    // Se ejecuta al voltear 2 cartas
+    // executed by flipping 2 cards
     if (selectedCard.length === 2) {
       console.log('se ejecuta al voltear 2 cartas')
       setMove(move - 1)
 
-      // compara si son iguales, si lo son las agrega al arreglo de found
+      // compare if they are the same, if they are, add them to the array of found
       if (selectedCard[0].id === selectedCard[1].id) {
         console.log('las cartas son iguales')
         setFoundCard((foundCard) => foundCard.concat(selectedCard))
