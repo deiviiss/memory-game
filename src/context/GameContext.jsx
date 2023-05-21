@@ -23,7 +23,9 @@ export const ProviderGame = ({ children }) => {
 
   const getCardsGame = async (gameId) => {
     const cards = await getGameRequest(gameId)
-    setCardsGame(cards)
+    if (cards) {
+      setCardsGame(cards)
+    }
   }
 
   return (
