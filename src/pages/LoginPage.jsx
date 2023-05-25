@@ -2,17 +2,17 @@ import { Link } from 'react-router-dom'
 
 export default function LoginPage () {
   return (
-    <div className="w-screen h-full flex justify-center items-center text-secondary overflow-hidden md:pt-12">
-      <div className="w-full h-auto flex flex-col justify-evenly my-8 mx-4 p-4 bg-secondary-gradient rounded-md md:flex-row lg:text-4xl dark:bg-dark-secondary-gradient">
-        <div className="md:w-1/2 md:space-y-4">
+    <div className="w-screen h-full flex justify-center items-center text-secondary overflow-hidden md:pt-8">
+      <div className="w-full h-auto flex flex-col justify-evenly my-8 mx-4 p-4 bg-secondary-gradient rounded-md lg:text-4xl dark:bg-dark-secondary-gradient">
+        <div className="md:space-y-4">
           <Link
             to="/signup"
-            className="flex justify-end pt-4 pr-2 text-xl pb-2 hover:underline md:justify-start md:p-0 lg:text-2xl"
+            className="flex justify-end pt-4 pr-2 text-xl pb-2 hover:underline md:p-0 lg:text-2xl"
           >
             Don&apos;t have an account? Sign up!
           </Link>
           <div className="flex flex-col items-center space-y-2 lg:space-y-4">
-            <h4 className="font-bold lg:text-5xl">Login To Your Account</h4>
+            <h4 className="font-bold pb-2 text-4xl lg:text-5xl">Login To Your Account</h4>
             <form className="w-full flex flex-col items-center space-y-1 lg:space-y-2">
               <input
                 className="w-3/4 text-2xl text-center rounded-sm lg:text-3xl"
@@ -25,7 +25,7 @@ export default function LoginPage () {
                 placeholder="Password"
               />
               <input
-                className="w-3/4 h-full text-primary p-2 bg-modal-gradient border border-primary rounded-lg cursor-pointer opacity-90 hover:opacity-100 dark:bg-dark-modal-gradient dark:border-secondary dark:text-secondary"
+                className="w-3/4 h-full text-primary p-2 mt-2 bg-modal-gradient border border-primary rounded-lg cursor-pointer opacity-90 hover:opacity-100 dark:bg-dark-modal-gradient dark:border-secondary dark:text-secondary"
                 type="submit"
                 value="Log In"
               />
@@ -45,8 +45,9 @@ export default function LoginPage () {
           </div>
         </div>
 
-        <div className="w-full h-auto flex flex-col justify-center items-center pt-2 space-y-2 md:w-1/2 md:space-y-4">
-          <a className="flex justify-around items-center h-12 w-full bg-red-600 border border-primary rounded-lg opacity-90 cursor-pointer hover:opacity-100 lg:h-14 dark:bg-red-800 dark:border-secondary">
+        <span className='text-center pb-2'>Or you can also login with</span>
+        <div className="w-full h-full flex justify-evenly content-center items-center">
+          <a className="flex justify-around items-center h-12 w-12 bg-modal-gradient border border-primary rounded-lg opacity-90 cursor-pointer hover:opacity-100 md:w-60 lg:h-14 lg:w-72 dark:bg-dark-modal-gradient dark:border-secondary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-brand-google w-6 h-6 lg:w-8 lg:h-8 "
@@ -61,9 +62,9 @@ export default function LoginPage () {
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>{' '}
               <path d="M17.788 5.108a9 9 0 1 0 3.212 6.892h-8"></path>
             </svg>
-            <span className="whitespace-nowrap">Sign in with Google</span>
+            <span className='whitespace-nowrap hidden md:block'>Sign with Google</span>
           </a>
-          <a className="flex justify-around items-center h-12 w-full bg-cyan-500 border border-primary rounded-lg opacity-90 cursor-pointer hover:opacity-100 lg:h-14 dark:bg-cyan-700 dark:border-secondary">
+          <a className="flex justify-around items-center h-12 w-12 bg-modal-gradient mt-0 border border-primary rounded-lg opacity-90 cursor-pointer hover:opacity-100 md:w-60 lg:h-14 lg:w-72 dark:bg-dark-modal-gradient dark:border-secondary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-brand-twitter-filled w-6 h-6 lg:w-8 lg:h-8"
@@ -82,25 +83,26 @@ export default function LoginPage () {
                 fill="currentColor"
               ></path>{' '}
             </svg>
-            <span className="whitespace-nowrap">Sign in with Twitter</span>
+            <span className='whitespace-nowrap hidden md:block'>Sign with Twitter</span>
           </a>
-          <a className="flex justify-around items-center h-12 w-full bg-blue-700 border border-primary rounded-lg opacity-90 cursor-pointer hover:opacity-100 lg:h-14 dark:bg-blue-900 dark:border-secondary">
+          <a className="flex justify-around items-center h-12 w-12 bg-modal-gradient mt-0 border border-primary rounded-lg opacity-90 cursor-pointer hover:opacity-100 md:w-60 lg:h-14 lg:w-72 dark:bg-dark-modal-gradient dark:border-secondary">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-brand-meta w-6 h-6 lg:w-8 lg:h-8"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-brand-facebook-filled w-6 h-6 lg:w-8 lg:h-8"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             >
-              {' '}
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>{' '}
-              <path d="M12 10.174c1.766 -2.784 3.315 -4.174 4.648 -4.174c2 0 3.263 2.213 4 5.217c.704 2.869 .5 6.783 -2 6.783c-1.114 0 -2.648 -1.565 -4.148 -3.652a27.627 27.627 0 0 1 -2.5 -4.174z"></path>{' '}
-              <path d="M12 10.174c-1.766 -2.784 -3.315 -4.174 -4.648 -4.174c-2 0 -3.263 2.213 -4 5.217c-.704 2.869 -.5 6.783 2 6.783c1.114 0 2.648 -1.565 4.148 -3.652c1 -1.391 1.833 -2.783 2.5 -4.174z"></path>{' '}
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M18 2a1 1 0 0 1 .993 .883l.007 .117v4a1 1 0 0 1 -.883 .993l-.117 .007h-3v1h3a1 1 0 0 1 .991 1.131l-.02 .112l-1 4a1 1 0 0 1 -.858 .75l-.113 .007h-2v6a1 1 0 0 1 -.883 .993l-.117 .007h-4a1 1 0 0 1 -.993 -.883l-.007 -.117v-6h-2a1 1 0 0 1 -.993 -.883l-.007 -.117v-4a1 1 0 0 1 .883 -.993l.117 -.007h2v-1a6 6 0 0 1 5.775 -5.996l.225 -.004h3z"
+              strokeWidth={0}
+              fill="currentColor"
+              ></path>
             </svg>
-            <span className="whitespace-nowrap">Sign in with Meta</span>
+            <span className='whitespace-nowrap hidden md:block'>Sign with Facebook</span>
           </a>
         </div>
       </div>
