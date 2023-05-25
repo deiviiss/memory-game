@@ -19,21 +19,6 @@ const CardAnimation = plugin(function ({ addUtilities }) {
   })
 })
 
-const NavActive = plugin(function ({ addUtilities }) {
-  addUtilities({
-    '.active': {
-      textDecorationLine: 'underline',
-      textDecorationStyle: 'solid',
-      textDecorationColor: '#090030',
-      textDecorationThickness: '2px',
-      '&:hover': {
-        textDecorationColor: '#FEFBE9'
-      },
-      textUnderlineOffset: '4px'
-    }
-  })
-})
-
 module.exports = {
   darkMode: 'class',
   content: [
@@ -73,6 +58,6 @@ module.exports = {
     }
   },
   plugins: [
-    CardAnimation, NavActive
+    CardAnimation
   ]
 }

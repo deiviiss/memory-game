@@ -4,7 +4,7 @@ import { useCards } from '../context/GameContext'
 import CardGame from './CardGame'
 import Modal from './Modal'
 import { formatTime } from '../utils/helpers'
-
+import { Link } from 'react-router-dom'
 export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeElapsed, timerOn, setTimerOn }) {
   const {
     cardsGame,
@@ -215,9 +215,11 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
       <div className="flex flex-col items-center my-2 space-y-2">
         <div>{infoModal.info}</div>
         <div className="flex flex-col justify-center justify-items-center items-center space-y-2 space-x-2 md:flex-row">
-          <button className="w-full h-auto px-10 py-2 ml-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap md:ml-0 md:mt-2 dark:bg-dark-secondary-gradient">
-            Go home
-          </button>
+          <Link to="/.">
+            <button className="w-full h-auto px-10 py-2 ml-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap md:ml-0 md:mt-2 dark:bg-dark-secondary-gradient">
+              Go home
+            </button>
+          </Link>
           <button className="w-full h-auto px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap dark:bg-dark-secondary-gradient" onClick={handleClickedStart}>
             {infoModal.buttonLabel}
           </button>
