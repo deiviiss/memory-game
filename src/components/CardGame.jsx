@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import cardImg from '../../public/imgs/card.png'
-import darkImg from '../../public/imgs/darkcard.png'
+import cardImg from '../assets/imgs/card.png'
+import darkImg from '../assets/imgs/darkcard.png'
 import { ThemeContext } from '../context/ThemeContext'
 import { useContext } from 'react'
 

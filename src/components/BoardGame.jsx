@@ -31,7 +31,9 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   const [infoModal, setInfoModal] = useState({
     buttonLabel: 'Start',
     title: 'Lets play',
-    info: ''
+    info: '',
+    move: `Moves: ${move}`,
+    level: `Level: ${currentLevel}`
   })
 
   // TIMER
@@ -76,9 +78,12 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
     let cards = []
 
     cards = selectRandomCards(cardsGame, currentLevel + 1)
-
     setMaxPairNumber(cards.length)
     setMove(cards.length + 3)
+    setInfoModal((prevModal) => ({
+      ...prevModal,
+      move: `Moves Left: ${move}`
+    }))
 
     const cardsPlay = shuffleCards(cards.concat(cards))
 
@@ -120,9 +125,9 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   }
 
   const checkIsWon = () => {
-    // comprobar si los momientos son 0
+    // check if the moments are 0
     if (move === 0) {
-      // si son 0 comprobar si los pares son iguales a found
+      // if they are 0 check if the pairs are equal to found
       if (foundCard.length === maxPairNumber * 2) {
         playerWins()
       } else {
@@ -130,7 +135,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
       }
     }
 
-    // comprobar si encontro todos los pares
+    // check if found all pairs
     if (foundCard.length === maxPairNumber * 2) {
       playerWins()
     }
@@ -144,7 +149,14 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
     // setTimeout(() => setCanPlay(false), 1000) ????
     resetTimer()
     setTimeout(() => setCardsLevel(''), 2000)
-    setInfoModal({ buttonLabel: 'Retry!', title: 'Sorry, you lost', info: 'Theres is not moves' })
+    setInfoModal(
+      {
+        buttonLabel: 'Retry!',
+        title: 'Sorry, you lost',
+        info: 'Theres is not moves',
+        time: `Time: ${formatTime(timeElapsed)}`,
+        move: `Moves Left: ${move}`
+      })
     setTimeout(() => setOpenModal(true), 2000)
     console.log('level incomplete')
   }
@@ -156,7 +168,20 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
     setCanPlay(false)
     // setTimeout(() => setCanPlay(false), 5000) ?????
     resetTimer()
+    setTimeout(() => setCardsLevel(''), 2000)
+    setInfoModal(
+      {
+        buttonLabel: 'Sure!',
+        title: 'Ready for next level?',
+        time: `Time: ${formatTime(timeElapsed)}`,
+        level: `Level: ${currentLevel}`,
+        move: `Moves Left: ${move}`
+      }
+    )
+    setTimeout(() => setOpenModal(true), 2000)
+    console.log('level complete')
 
+    //! PREPARE NEW LEVEL
     const newUsedCards = foundCard.concat(usedCards)
     setUsedCards(newUsedCards)
     // delete usedCards from cardsGame
@@ -165,21 +190,16 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
         !newUsedCards.some((newUsedCard) => newUsedCard.id === card.id)
     )
     setCardsGame(result)
-
-    setTimeout(() => setCardsLevel(''), 2000)
-    setInfoModal({ buttonLabel: 'Sure!', title: 'Ready for next level?', info: formatTime(timeElapsed) })
     setTimeout(() => setCurrentLevel(currentLevel + 1), 3000)
-    setTimeout(() => setOpenModal(true), 2000)
-    console.log('level complete')
   }
 
   useEffect(() => {
-    // Se ejecuta al voltear 2 cartas
+    // executed by flipping 2 cards
     if (selectedCard.length === 2) {
       console.log('se ejecuta al voltear 2 cartas')
       setMove(move - 1)
 
-      // compara si son iguales, si lo son las agrega al arreglo de found
+      // compare if they are the same, if they are, add them to the array of found
       if (selectedCard[0].id === selectedCard[1].id) {
         console.log('las cartas son iguales')
         setFoundCard((foundCard) => foundCard.concat(selectedCard))
@@ -209,11 +229,20 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
     }
   }, [cardsGame])
 
+  useEffect(() => {
+    setCardsForLevel()
+  }, [cardsGame])
+
   const InfoModal = () => {
     return (
        <>
       <div className="flex flex-col items-center my-2 space-y-2">
-        <div>{infoModal.info}</div>
+        <div>
+      <p>{infoModal.time}</p>
+        <p>{infoModal.level}</p>
+        <p>{infoModal.move}</p>
+        <p>{infoModal.info}</p>
+      </div>
         <div className="flex flex-col justify-center justify-items-center items-center space-y-2 space-x-2 md:flex-row">
           <Link to="/.">
             <button className="w-full h-auto px-10 py-2 ml-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap md:ml-0 md:mt-2 dark:bg-dark-secondary-gradient">
