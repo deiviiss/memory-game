@@ -6,18 +6,17 @@ const Toggle = () => {
   const { theme, setTheme } = useContext(ThemeContext)
 
   return (
-    <div className='transition ease-in-out duration-500 rounded-full p-2'>
+    <div className='flex justify-center items-center space-x-1 transition ease-in-out duration-500 rounded-full p-2 cursor-pointer' onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+      <span className='block md:hidden'>Darkmode</span>
       {theme === 'dark'
         ? (
           <FaSun
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className='text-red text-2xl dark:text-blue cursor-pointer'
+            className='text-red text-2xl hidden md:block dark:text-blue'
           />
           )
         : (
           <FaMoon
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className='text-red text-2xl dark:text-blue cursor-pointer'
+            className='text-red text-2xl hidden md:block dark:text-blue'
           />
           )}
     </div>

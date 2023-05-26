@@ -1,4 +1,5 @@
 import { useEffect, useState, createContext } from 'react'
+import PropTypes from 'prop-types'
 
 const getInitialTheme = () => {
   if (typeof window !== 'undefined' && window.localStorage) {
@@ -35,4 +36,8 @@ export const ThemeProvider = ({ children }) => {
   }, [theme])
 
   return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
+}
+
+ThemeProvider.propTypes = {
+  children: PropTypes.any
 }

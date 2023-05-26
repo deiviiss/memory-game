@@ -5,11 +5,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     hmr: {
-        host: 'localhost',
+      host: 'localhost'
     },
     watch: {
-        usePolling: true
+      usePolling: true
     }
-},
+  },
   plugins: [react()]
 })
