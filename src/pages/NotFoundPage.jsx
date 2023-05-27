@@ -1,4 +1,4 @@
-import error from '../../public/imgs/error.svg'
+import error from '../assets/imgs/error.svg'
 import { Link } from 'react-router-dom'
 
 export default function NotFoundPage () {

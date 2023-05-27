@@ -5,6 +5,8 @@ import CardGame from './CardGame'
 import Modal from './Modal'
 import { formatTime } from '../utils/helpers'
 import { Link } from 'react-router-dom'
+
+import confetti from 'canvas-confetti'
 export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeElapsed, timerOn, setTimerOn }) {
   const {
     cardsGame,
@@ -31,9 +33,9 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   const [infoModal, setInfoModal] = useState({
     buttonLabel: 'Start',
     title: 'Lets play',
-    info: '',
+    level: `Level: ${currentLevel}`,
     move: `Moves: ${move}`,
-    level: `Level: ${currentLevel}`
+    info: ''
   })
 
   // TIMER
@@ -129,33 +131,44 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
     if (move === 0) {
       // if they are 0 check if the pairs are equal to found
       if (foundCard.length === maxPairNumber * 2) {
-        playerWins()
+        setTimerOn(false)
+        stopTimer()
+        setTimeout(() => {
+          confetti()
+          playerWins()
+        }, 2000)
       } else {
-        playerLoses()
+        setTimerOn(false)
+        stopTimer()
+        setTimeout(() => {
+          playerLoses()
+        }, 2000)
       }
     }
 
     // check if found all pairs
     if (foundCard.length === maxPairNumber * 2) {
-      playerWins()
+      setTimerOn(false)
+      stopTimer()
+      setTimeout(() => {
+        confetti()
+        playerWins()
+      }, 2000)
     }
   }
 
   const playerLoses = () => {
     console.log('player loses')
-    setTimerOn(false)
-    stopTimer()
-    setCanPlay(false)
-    // setTimeout(() => setCanPlay(false), 1000) ????
     resetTimer()
+    setCanPlay(false)
     setTimeout(() => setCardsLevel(''), 2000)
     setInfoModal(
       {
         buttonLabel: 'Retry!',
         title: 'Sorry, you lost',
-        info: 'Theres is not moves',
         time: `Time: ${formatTime(timeElapsed)}`,
-        move: `Moves Left: ${move}`
+        move: `Moves Left: ${move}`,
+        info: 'Theres is not moves'
       })
     setTimeout(() => setOpenModal(true), 2000)
     console.log('level incomplete')
@@ -163,22 +176,19 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
 
   const playerWins = () => {
     console.log('player win')
-    setTimerOn(false)
-    stopTimer()
-    setCanPlay(false)
-    // setTimeout(() => setCanPlay(false), 5000) ?????
     resetTimer()
+    setCanPlay(false)
     setTimeout(() => setCardsLevel(''), 2000)
     setInfoModal(
       {
         buttonLabel: 'Sure!',
         title: 'Ready for next level?',
-        time: `Time: ${formatTime(timeElapsed)}`,
         level: `Level: ${currentLevel}`,
+        time: `Time: ${formatTime(timeElapsed)}`,
         move: `Moves Left: ${move}`
       }
     )
-    setTimeout(() => setOpenModal(true), 2000)
+    setTimeout(() => setOpenModal(true), 500)
     console.log('level complete')
 
     //! PREPARE NEW LEVEL
