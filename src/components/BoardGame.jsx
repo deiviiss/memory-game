@@ -5,6 +5,8 @@ import CardGame from './CardGame'
 import Modal from './Modal'
 import { formatTime } from '../utils/helpers'
 import { Link } from 'react-router-dom'
+
+import confetti from 'canvas-confetti'
 export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeElapsed, timerOn, setTimerOn }) {
   const {
     cardsGame,
@@ -132,6 +134,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
         setTimerOn(false)
         stopTimer()
         setTimeout(() => {
+          confetti()
           playerWins()
         }, 2000)
       } else {
@@ -148,6 +151,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
       setTimerOn(false)
       stopTimer()
       setTimeout(() => {
+        confetti()
         playerWins()
       }, 2000)
     }
