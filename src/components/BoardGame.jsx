@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useCards } from '../context/GameContext'
 import CardGame from './CardGame'
 import Modal from './Modal'
 import { formatTime } from '../utils/helpers'
 import { Link } from 'react-router-dom'
+import CardBoard from '../components/CardBoard'
+import { Ring } from '@uiball/loaders'
 
 import confetti from 'canvas-confetti'
 export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeElapsed, timerOn, setTimerOn }) {
@@ -26,6 +28,9 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   const [selectedCard, setSelectedCard] = useState([]) // cards selected
   const [foundCard, setFoundCard] = useState([]) // cards found
   const [showAllCards, setShowAllCards] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
+  const playBoardRef = useRef()
+  const buttonRef = useRef()
 
   // MODAL
   const [openModal, setOpenModal] = useState(true)
@@ -160,7 +165,6 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   const playerLoses = () => {
     console.log('player loses')
     resetTimer()
-    setCanPlay(false)
     setTimeout(() => setCardsLevel(''), 2000)
     setInfoModal(
       {
@@ -177,7 +181,6 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   const playerWins = () => {
     console.log('player win')
     resetTimer()
-    setCanPlay(false)
     setTimeout(() => setCardsLevel(''), 2000)
     setInfoModal(
       {
@@ -188,7 +191,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
         move: `Moves Left: ${move}`
       }
     )
-    setTimeout(() => setOpenModal(true), 500)
+    setTimeout(() => setOpenModal(true), 2000)
     console.log('level complete')
 
     //! PREPARE NEW LEVEL
@@ -255,7 +258,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
       </div>
         <div className="flex flex-col justify-center justify-items-center items-center space-y-2 space-x-2 md:flex-row">
           <Link to="/.">
-            <button className="w-full h-auto px-10 py-2 ml-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap md:ml-0 md:mt-2 dark:bg-dark-secondary-gradient">
+            <button className="w-full h-auto px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap md:ml-0 dark:bg-dark-secondary-gradient">
               Go home
             </button>
           </Link>
@@ -275,29 +278,61 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   ? <Modal open={openModal} setOpen={setOpenModal} title={infoModal.title}>
        <InfoModal />
       </Modal>
-  : 'Cargando cartas'}
+  : <Ring className="h-8 w-8 flex justify-center items-center"/>}
 
       {cardsLevel.length > 0 && (
-        <ul
-          className={`w-full grid justify-center items-center px-4 auto-cols-min grid-cols-3 sm:grid-cols-4 md:grid-cols-6 md:px-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 ${
-            !canPlay ? 'hidden' : ''
-          }`}
-        >
-          {cardsLevel?.map((card, index) => (
-            <CardGame
-              key={index}
-              card={card}
-              setSelectedCard={setSelectedCard}
-              selectedCard={selectedCard}
-              foundCard={foundCard}
-              showAllCards={showAllCards}
-              timeElapsed = {timeElapsed}
-              setTimeElapsed={setTimeElapsed}
-              timerOn = {timerOn}
-              setTimerOn = {setTimerOn}
-            />
-          ))}
-        </ul>
+        <div>
+          <ul
+            className={`w-full grid justify-center items-center px-4 auto-cols-min grid-cols-3 sm:grid-cols-4 md:grid-cols-6 md:px-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 ${
+              !canPlay ? 'hidden' : ''
+            }`}
+          >
+            {cardsLevel?.map((card, index) => (
+              <CardGame
+                key={index}
+                card={card}
+                setSelectedCard={setSelectedCard}
+                selectedCard={selectedCard}
+                foundCard={foundCard}
+                showAllCards={showAllCards}
+                timeElapsed = {timeElapsed}
+                setTimeElapsed={setTimeElapsed}
+                timerOn = {timerOn}
+                setTimerOn = {setTimerOn}
+              />
+            ))}
+          </ul>
+          <div ref={playBoardRef} className="relative w-auto flex flex-col items-center rounded-md z-50">
+          <button ref={buttonRef} onClick={() => setIsOpen((prev) => !prev)} className={`fixed bottom-0 flex items-center justify-around bg-secondary-gradient border-transparent rounded-t-lg duration-400 ${isOpen ? 'bottom-20' : ''
+            }`} >
+            {isOpen
+              ? (
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-down text-secondary" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M6 9l6 6l6 -6"></path>
+                </svg>
+                )
+              : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-up text-secondary" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M6 15l6 -6l6 6"></path>
+                </svg>
+                )}
+          </button>
+          {isOpen && (
+            <div className={`fixed bottom-0 left-0 w-full flex flex-row justify-around items-center bg-secondary-gradient bg-no-repeat dark:bg-dark-secondary-gradient ${canPlay ? '' : 'hidden'}`}>
+              {/* level */}
+              <CardBoard name={'Lvl'} data={currentLevel} />
+              {/* timer */}
+              <CardBoard name={'Timer'} data={formatTime(timeElapsed)} />
+
+              {/* score */}
+              <CardBoard name={'Moves'} data={move} />
+              {/* attempts */}
+            </div>
+          )}
+        </div>
+      </div>
       )}
     </div>
   )

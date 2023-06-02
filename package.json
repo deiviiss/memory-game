@@ -20,6 +20,7 @@
   "author": "Andrey Calderon <@andreycalder0n> David Hilera <david.hilera@hotmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@uiball/loaders": "^1.2.6",
     "axios": "1.3.4",
     "canvas-confetti": "^1.6.0",
     "core-js": "3.30.0",

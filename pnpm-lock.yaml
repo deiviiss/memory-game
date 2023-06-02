@@ -9,6 +9,9 @@ overrides:
   moment@>=2.18.0 <2.29.4: '>=2.29.4'
 
 dependencies:
+  '@uiball/loaders':
+    specifier: ^1.2.6
+    version: 1.2.6(react-dom@18.2.0)(react@18.2.0)
   axios:
     specifier: 1.3.4
     version: 1.3.4
@@ -757,6 +760,16 @@ packages:
 
   /@types/stringify-object@4.0.1:
     resolution: {integrity: sha512-IBlbUGpI7FoWWr1FHQDntMkA7nCEI7Hox/hmwgWgRqohV7SRRkbWB86PayOX++NwtJTapQ8wIs7XtEp4fXonwA==}
+    dev: false
+
+  /@uiball/loaders@1.2.6(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Db3be5pG9ciZa1Rxr6Iwv8bIwVP+g00m3GYQFsu3j7B9T16MpHhnGXLksuNtKlePdP3FCTFGpFrXbJz4GG/OOg==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /@vitejs/plugin-react@3.1.0(vite@4.2.1):
