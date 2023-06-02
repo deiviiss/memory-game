@@ -258,7 +258,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
       </div>
         <div className="flex flex-col justify-center justify-items-center items-center space-y-2 space-x-2 md:flex-row">
           <Link to="/.">
-            <button className="w-full h-auto px-10 py-2 ml-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap md:ml-0 md:mt-2 dark:bg-dark-secondary-gradient">
+            <button className="w-full h-auto px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap md:ml-0 dark:bg-dark-secondary-gradient">
               Go home
             </button>
           </Link>
