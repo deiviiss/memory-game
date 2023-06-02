@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useCards } from '../context/GameContext'
 import CardGame from './CardGame'
 import Modal from './Modal'
@@ -29,8 +29,6 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   const [foundCard, setFoundCard] = useState([]) // cards found
   const [showAllCards, setShowAllCards] = useState(false)
   const [isOpen, setIsOpen] = useState(true)
-  const playBoardRef = useRef()
-  const buttonRef = useRef()
 
   // MODAL
   const [openModal, setOpenModal] = useState(true)
@@ -262,9 +260,11 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
               Go home
             </button>
           </Link>
-          <button className="w-full h-auto px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap dark:bg-dark-secondary-gradient" onClick={handleClickedStart}>
-            {infoModal.buttonLabel}
-          </button>
+          <div>
+            <button className="w-full h-auto px-10 py-2 rounded-full text-secondary border-none bg-secondary-gradient cursor-pointer font-roboto transition duration-300 ease-in-out hover:bg-blue-700 whitespace-nowrap dark:bg-dark-secondary-gradient" onClick={handleClickedStart}>
+              {infoModal.buttonLabel}
+            </button>
+          </div>
         </div>
       </div>
         </>
@@ -302,8 +302,8 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
               />
             ))}
           </ul>
-          <div ref={playBoardRef} className="relative w-auto flex flex-col items-center rounded-md z-50">
-          <button ref={buttonRef} onClick={() => setIsOpen((prev) => !prev)} className={`fixed bottom-0 flex items-center justify-around bg-secondary-gradient border-transparent rounded-t-lg duration-400 ${isOpen ? 'bottom-20' : ''
+          <div className="relative w-auto flex flex-col items-center rounded-md z-50">
+          <button onClick={() => setIsOpen((prev) => !prev)} className={`fixed bottom-0 flex items-center justify-around bg-secondary-gradient border-transparent rounded-t-lg duration-400 ${isOpen ? 'bottom-20' : ''
             }`} >
             {isOpen
               ? (
