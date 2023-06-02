@@ -164,7 +164,6 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   const playerLoses = () => {
     console.log('player loses')
     resetTimer()
-    setCanPlay(false)
     setTimeout(() => setCardsLevel(''), 2000)
     setInfoModal(
       {
@@ -181,7 +180,6 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   const playerWins = () => {
     console.log('player win')
     resetTimer()
-    setCanPlay(false)
     setTimeout(() => setCardsLevel(''), 2000)
     setInfoModal(
       {
@@ -192,7 +190,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
         move: `Moves Left: ${move}`
       }
     )
-    setTimeout(() => setOpenModal(true), 500)
+    setTimeout(() => setOpenModal(true), 2000)
     console.log('level complete')
 
     //! PREPARE NEW LEVEL
