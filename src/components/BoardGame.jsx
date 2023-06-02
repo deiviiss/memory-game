@@ -6,6 +6,7 @@ import Modal from './Modal'
 import { formatTime } from '../utils/helpers'
 import { Link } from 'react-router-dom'
 import CardBoard from '../components/CardBoard'
+import { Ring } from '@uiball/loaders'
 
 import confetti from 'canvas-confetti'
 export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeElapsed, timerOn, setTimerOn }) {
@@ -277,7 +278,7 @@ export default function BoardGame ({ canPlay, setCanPlay, setTimeElapsed, timeEl
   ? <Modal open={openModal} setOpen={setOpenModal} title={infoModal.title}>
        <InfoModal />
       </Modal>
-  : 'Cargando cartas'}
+  : <Ring className="h-8 w-8 flex justify-center items-center"/>}
 
       {cardsLevel.length > 0 && (
         <div>
