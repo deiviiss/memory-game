@@ -14,7 +14,7 @@ export default function Navbar () {
         <img src={theme === 'dark' ? darkCardLogo : cardLogo} alt="Logo" className="w-10 h-12 rounded-md " />
       </Link>
       <ul className="w-1/3 flex flex-row text-center items-center justify-around">
-        <li className="duration-400 active:text-secondary hidden md:block">
+        <li className="duration-400 active:text-secondary">
           <Toggle />
         </li>
         <DropDown />

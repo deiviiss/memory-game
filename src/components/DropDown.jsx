@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
-import Toggle from './ThemeToggle'
 
 export default function DropDown () {
   const [isOpen, setIsOpen] = useState(false)
@@ -46,9 +45,6 @@ export default function DropDown () {
       </NavLink>
     </li>
           ))}
-    <li className='w-full flex justify-center items-center md:hidden'>
-      <Toggle />
-    </li>
         </ul>
       )}
     </div>
